@@ -1,7 +1,27 @@
-﻿@{
+﻿@model IEnumerable<UmlDiagrams.Domain.Model.Diagram>
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div>
+    <div id="diagrams-list" class="panel panel-default">
+        <div class="panel-heading">Список UML диаграмм</div>
 
+        <table class="table table-striped table-hover">
+            <thead>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>Время создания</th>
+            </thead>
+            @foreach (var diagram in @Model)
+            {
+                <tr>
+                    <td>@diagram.Name</td>
+                    <td>@diagram.Author</td>
+                    <td>@diagram.CreateTime</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <button class="btn btn-primary btn-lg active">Создать новую диаграмму</button>
 </div>

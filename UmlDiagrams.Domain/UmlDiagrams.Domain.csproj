@@ -46,12 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiagramsRepository.cs" />
+    <Compile Include="IDiagramsRepository.cs" />
+    <Compile Include="Model\ActorElement.cs" />
+    <Compile Include="Model\ArrowElement.cs" />
+    <Compile Include="Model\Diagram.cs" />
+    <Compile Include="Model\DiagramElement.cs" />
+    <Compile Include="Model\UseCaseElement.cs" />
+    <Compile Include="Model\UserAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UmlDiagramContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

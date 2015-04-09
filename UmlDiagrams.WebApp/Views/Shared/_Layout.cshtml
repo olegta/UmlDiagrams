@@ -7,13 +7,13 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body draggable="false">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Список диаграмм", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Новая диаграмма", "Create", "Home")</li>
+                    <li><a href="#" id="new-diagram-main-link">Новая диаграмма</a></li>
                 </ul>
             </div>
         </div>
