@@ -35,6 +35,7 @@ namespace UmlDiagrams.Domain
             if (author == null)
                 throw new ArgumentException("argument can not be null", "author");
 
+            // проверка уникальности имени таблицы осуществляется базой данных (unique поле)
             try
             {
                 var diagram = new Diagram()
