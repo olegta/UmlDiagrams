@@ -9,7 +9,8 @@ namespace UmlDiagrams.WebApp
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -20,9 +21,15 @@ namespace UmlDiagrams.WebApp
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/diagrams-interaction").Include(
+                "~/Scripts/Home/diagrams-interaction.js"));
+
+            bundles.Add(new StyleBundle("~/Content/Site").Include(
+                "~/Content/Site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
+
+            bundles.Add(new StyleBundle("~/Theme/redmond").Include("~/Theme/redmond/*.css"));
         }
     }
 }

@@ -1,11 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@using UmlDiagrams.WebApp.Controllers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/Site")
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Theme/redmond")
+    
 </head>
 <body draggable="false">
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -13,7 +17,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Список диаграмм", "Index", "Home")</li>
-                    <li><a href="#" id="new-diagram-main-link">Новая диаграмма</a></li>
+                    <li><a href="#" class="create-new-diagram-button">Новая диаграмма</a></li>
                 </ul>
             </div>
         </div>
@@ -21,9 +25,26 @@
     <div>
         @RenderBody()
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
+    <div id="create-new-dialog" class="ui-helper-hidden" title="Введите название диаграммы">
+        @using (@Html.BeginForm("Create", "Home"))
+        {
+            <div class="form-group">
+                @Html.Label("diagram", "Название: ")
+                @Html.TextBox("diagramName", "", new { @class = "form-control", placeholder = "Введите название диаграммы" })
+            </div>
+            <div class="form-group">
+                @{
+                    string defaultAuthor = Response.Cookies[HomeController.AUTHOR_COOKIE] != null
+                        ? Response.Cookies[HomeController.AUTHOR_COOKIE].Value : "";
+                }
+                @Html.Label("author", "Автор: ")
+                @Html.TextBox("author", defaultAuthor, new { @class = "form-control", placeholder = "Введите имя автора" })
+            </div>
+        }
+    </div>
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/diagrams-interaction")
     @RenderSection("scripts", required: false)
 </body>
 </html>

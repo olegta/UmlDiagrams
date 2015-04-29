@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="d697d93c-38f6-44eb-ad44-254e49c4b0a8" name="UMLUseCaseDiagram1" linkedPackageId="6302df3e-95e6-45f3-a243-2600c0ce0e60" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <ownedCommentsInternal>
+    <comment Id="51c5f02f-f243-4882-b0ab-fab2244bee66">
+      <elementDefinition Id="55a2d722-ccd8-4592-83fd-3487ea37a9a0" />
+      <annotatedElements>
+        <actorMoniker Id="7ef97a6d-bbe0-44ad-8bd0-cfa593fd884c" LastKnownName="Actor2" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="a26e0cda-501a-43f7-860a-db1249bf0433">
+      <profileInstance Id="f7a9633f-f718-48ed-be71-b33ecbc14b95" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="9c41beb8-0b22-4330-9c9a-878cc600e77f">
+      <profileInstance Id="016e26f8-7bf7-487f-98ee-5399f20abc9f" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="9b04b494-0103-4361-ae0d-6ea1bb5502a6" name="fhkfk" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0b36fb8f-81ed-4f7d-82ff-0493fd787466" />
+        <targetEnds>
+          <association Id="7cf6b48b-0b4a-4651-a6c3-f16de5151ac4" isDerived="false" sourceEndRoleName="Actor1" targetEndRoleName="UseCase1" isLeaf="false" name="sdfg" isAbstract="false">
+            <useCaseMoniker Id="99608803-b3f2-4665-91dc-68becfd2850c" LastKnownName="UseCase1" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="94bdc23e-4c7b-47f6-83b1-7a272ae618f5" name="Actor1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="74f2c671-3149-4430-aede-5efb0a8a041a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="10495c14-4194-4a0a-9503-5ba02d53783a" name="UseCase1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="c3bcc309-9017-4503-8c9b-3da07e70d51b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0b6853cb-7ea7-4af0-82a4-ad413451020b" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="99608803-b3f2-4665-91dc-68becfd2850c" name="UseCase1" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="dda84330-6383-4b66-bcae-900564eaf300" />
+        <suppliersInternal>
+          <dependency Id="7fc27196-fabd-4e1a-8237-956759f658e6" name="dfdsf">
+            <useCaseMoniker Id="2cacd3c5-ac51-4246-b049-b5951aac618e" LastKnownName="UseCase2" />
+            <elementDefinition Id="f24b9d21-46e3-41c3-9d34-34d927a531f0" />
+          </dependency>
+        </suppliersInternal>
+        <additions>
+          <include Id="d1631b9f-62d5-470b-b36e-99908318f865">
+            <useCaseMoniker Id="438b773b-3502-440f-946b-d2b3530a1a90" LastKnownName="UseCase3" />
+            <elementDefinition Id="9901ce99-e77d-470e-97f7-986be9b1b94f" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="2cacd3c5-ac51-4246-b049-b5951aac618e" name="UseCase2" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b20f5d6a-cf76-4c05-b555-120b9ee77808" />
+        <extendedCases>
+          <extend Id="ec0162e5-d4a6-4ca8-bb46-361015e78742">
+            <useCaseMoniker Id="055684d8-666b-4df2-a52c-421bb169d10f" LastKnownName="UseCase4" />
+            <elementDefinition Id="b34c3fdd-2643-4f77-b3ea-43b9033b4218" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="438b773b-3502-440f-946b-d2b3530a1a90" name="UseCase3" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="6dc1aceb-5988-43e3-80a7-61961379f732" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="055684d8-666b-4df2-a52c-421bb169d10f" name="UseCase4" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="81d58786-20b4-44fa-a732-824dbb5b8d40" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="7ef97a6d-bbe0-44ad-8bd0-cfa593fd884c" name="Actor2" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="44e9bcfd-4e9d-4e67-869b-8c320ae54874" />
+        <generalsInternal>
+          <generalization Id="a599c05f-a409-48ca-96e7-1055448411b6" isSubstitutable="false">
+            <actorMoniker Id="9b04b494-0103-4361-ae0d-6ea1bb5502a6" LastKnownName="fhkfk" />
+            <elementDefinition Id="4407a6b6-0f04-4cb1-9dd5-fca1817ab1a6" />
+          </generalization>
+        </generalsInternal>
+      </actor>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="6302df3e-95e6-45f3-a243-2600c0ce0e60" name="ModelingProject1">
+    <elementDefinition Id="26dfbea2-b38b-4161-95b5-8b1347c57fa8" />
+  </package>
+</useCaseModelRoot>

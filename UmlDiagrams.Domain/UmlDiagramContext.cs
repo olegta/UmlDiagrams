@@ -12,9 +12,12 @@ namespace UmlDiagrams.Domain
     class UmlDiagramContext : DbContext
     {
         public UmlDiagramContext()
-            : base("DbConnection")
+            : base("UmlDiagramsContext")
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<UmlDiagramContext>());
+            Database.SetInitializer(
+                //new DropCreateDatabaseAlways<UmlDiagramContext>()
+                new CreateDatabaseIfNotExists<UmlDiagramContext>()
+                );
         }
 
         public DbSet<Diagram> Diagrams { get; set; }

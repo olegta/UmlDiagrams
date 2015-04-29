@@ -1,27 +1,35 @@
-﻿@model IEnumerable<UmlDiagrams.Domain.Model.Diagram>
+﻿@using UmlDiagrams.WebApp.Controllers
+@model IEnumerable<UmlDiagrams.Domain.Model.Diagram>
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "UML в реальном времени";
 }
-
 <div>
+    @if (TempData[HomeController.DIAGRAM_NOT_CREATED_KEY] != null)
+    {
+        <div class="not-created-message">@TempData[HomeController.DIAGRAM_NOT_CREATED_KEY]</div>
+    }
     <div id="diagrams-list" class="panel panel-default">
-        <div class="panel-heading">Список UML диаграмм</div>
+        <div class="panel-heading"><strong>Список UML диаграмм</strong></div>
 
         <table class="table table-striped table-hover">
             <thead>
-            <th>Название</th>
-            <th>Автор</th>
-            <th>Время создания</th>
-            </thead>
-            @foreach (var diagram in @Model)
-            {
                 <tr>
-                    <td>@diagram.Name</td>
-                    <td>@diagram.Author</td>
-                    <td>@diagram.CreateTime</td>
+                    <th>Название</th>
+                    <th>Автор</th>
+                    <th>Время создания</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var diagram in @Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(diagram.Name, "Diagram", new { id = diagram.Id })</td>
+                        <td>@diagram.Author</td>
+                        <td>@diagram.CreateTime.ToString("dd.MM.yyyyг. | HH:mm:ss")</td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
-    <button class="btn btn-primary btn-lg active">Создать новую диаграмму</button>
+    <button class="create-new-diagram-button btn btn-primary btn-lg active">Создать новую диаграмму</button>    
 </div>

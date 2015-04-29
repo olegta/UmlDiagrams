@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using UmlDiagrams.Domain;
 using UmlDiagrams.Domain.Model;
 
@@ -10,25 +11,41 @@ namespace UmlDiagrams.WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        public const string DIAGRAM_NOT_CREATED_KEY = "NotCreated";
+
+        public const string AUTHOR_COOKIE = "default_author";
+
+
         private IDiagramsRepository _diagramsRepository;
 
         public HomeController(IDiagramsRepository diagramsRepository)
-        {
+        {            
             _diagramsRepository = diagramsRepository;
         }
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View(new Diagram[]
-            {
-                new Diagram() { Name = "test1", CreateTime = DateTime.Now - TimeSpan.FromDays(1) },
-                new Diagram() { Name = "test2", CreateTime = DateTime.Now - TimeSpan.FromDays(10) }
-            });
+            // TODO: ограничить количество одновременно отображаемых на странице диаграмм
+            IQueryable<Diagram> allDiagrams = _diagramsRepository.GetAllDiagrams();
+            return View(allDiagrams);
         }
 
-        public ActionResult Create()
+        [HttpPost]
+        public RedirectToRouteResult Create(string diagramName, string author)
         {
-            return View();
+            int? createdId = _diagramsRepository.CreateNew(diagramName, author);
+            if (createdId != null)
+            {
+                Response.SetCookie(new HttpCookie(AUTHOR_COOKIE, author));
+                return RedirectToRoute(new {controller = "Home", action = "Diagram", id = createdId.Value});
+            }
+            TempData[DIAGRAM_NOT_CREATED_KEY] = "Не удалось создать новую диаграмму. Попробуйте использовать другое имя.";
+            return RedirectToRoute(new { controller = "Home", action = "Index" });
+        }
+
+        public ViewResult Diagram(int id)
+        {
+            return View(_diagramsRepository.GetDiagram(id));
         }
     }
 }
