@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.AspNet.SignalR;
 using UmlDiagrams.Domain;
 using UmlDiagrams.Domain.Model;
+using UmlDiagrams.WebApp.Hubs;
 
 namespace UmlDiagrams.WebApp.Controllers
 {
@@ -40,6 +42,7 @@ namespace UmlDiagrams.WebApp.Controllers
                 return RedirectToRoute(new {controller = "Home", action = "Diagram", id = createdId.Value});
             }
             TempData[DIAGRAM_NOT_CREATED_KEY] = "Не удалось создать новую диаграмму. Попробуйте использовать другое имя.";
+            
             return RedirectToRoute(new { controller = "Home", action = "Index" });
         }
 
