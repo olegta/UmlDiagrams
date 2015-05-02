@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace UmlDiagrams.Domain.Model
 {
-    public class UseCaseElement : DiagramElement
+    public class UmlAttribute
     {
-        public string Caption { get; set; }
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Type { get; set; }
     }
 }

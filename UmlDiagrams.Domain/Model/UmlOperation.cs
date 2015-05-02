@@ -6,18 +6,10 @@ using System.Threading.Tasks;
 
 namespace UmlDiagrams.Domain.Model
 {
-    public enum UserActionType
-    {
-        Update,
-        Delete
-    }
-
-    public class UserAction
+    public class UmlOperation
     {
         public int Id { get; set; }
 
-        public UserActionType Type { get; set; }
-
-        public DiagramElement Element { get; set; }
+        public string Name { get; set; }
     }
 }

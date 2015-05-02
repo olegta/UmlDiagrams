@@ -23,17 +23,17 @@ namespace UmlDiagrams.Tests.Controllers
         {
             var mock = new Mock<IDiagramsRepository>();
             mock.Setup(m => m.GetAllDiagrams()).Returns(
-                new Diagram[]
+                new UmlDiagram[]
                 {
-                    new Diagram() { Name = "test1"},
-                    new Diagram() { Name = "test2"}
+                    new UmlDiagram() { Name = "test1"},
+                    new UmlDiagram() { Name = "test2"}
                 }.AsQueryable()
             );
             var controller = new HomeController(mock.Object);
             ViewResult result = controller.Index() as ViewResult;
 
             Assert.IsNotNull(result);
-            IEnumerable<Diagram> model = result.Model as IEnumerable<Diagram>;
+            IEnumerable<UmlDiagram> model = result.Model as IEnumerable<UmlDiagram>;
             Assert.IsNotNull(model);
             Assert.AreEqual(model.Count(), 2);
         }

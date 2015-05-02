@@ -15,19 +15,29 @@ namespace UmlDiagrams.Domain
             : base("UmlDiagramsContext")
         {
             Database.SetInitializer(
-                //new DropCreateDatabaseAlways<UmlDiagramContext>()
-                new CreateDatabaseIfNotExists<UmlDiagramContext>()
+                new DropCreateDatabaseAlways<UmlDiagramContext>()
+                //new CreateDatabaseIfNotExists<UmlDiagramContext>()
                 );
         }
 
-        public DbSet<Diagram> Diagrams { get; set; }
+        public DbSet<UmlDiagram> Diagrams { get; set; }
 
-        public DbSet<UserAction> UserActions { get; set; }
+        public DbSet<UmlArrow> Arrows { get; set; }
 
-        public DbSet<ActorElement> ActorElements { get; set; }
+        public DbSet<UmlComment> Comments { get; set; }
 
-        public DbSet<UseCaseElement> UseCaseElements { get; set; }
+        public DbSet<UmlAttribute> Attributes { get; set; }
 
-        public DbSet<ArrowElement> ArrowElements { get; set; }
+        public DbSet<UmlOperation> Operations { get; set; }
+
+        public DbSet<UmlDiagramElement> DiagramElements { get; set; }
+
+        public DbSet<UmlClass> Classes { get; set; }
+
+        public DbSet<UmlInterface> Interfaces { get; set; }
+
+        public DbSet<UmlEnumeration> Enumerations { get; set; }
+
+        public DbSet<UmlLiteral> Literals { get; set; }
     }
 }

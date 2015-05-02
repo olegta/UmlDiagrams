@@ -28,7 +28,7 @@ namespace UmlDiagrams.WebApp.Controllers
         public ViewResult Index()
         {
             // TODO: ограничить количество одновременно отображаемых на странице диаграмм
-            IQueryable<Diagram> allDiagrams = _diagramsRepository.GetAllDiagrams();
+            IQueryable<UmlDiagram> allDiagrams = _diagramsRepository.GetAllDiagrams();
             return View(allDiagrams);
         }
 

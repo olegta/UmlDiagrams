@@ -9,9 +9,9 @@ namespace UmlDiagrams.Domain
 {
     public interface IDiagramsRepository
     {
-        IQueryable<Diagram> GetAllDiagrams();
+        IQueryable<UmlDiagram> GetAllDiagrams();
 
-        Diagram GetDiagram(int id);
+        UmlDiagram GetDiagram(int id);
 
         int? CreateNew(string diagramName, string author);
     }

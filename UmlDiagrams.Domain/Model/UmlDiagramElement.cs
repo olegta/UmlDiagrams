@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UmlDiagrams.Domain.Model
 {
-    public abstract class DiagramElement
+    public abstract class UmlDiagramElement
     {
         public int Id { get; set; }
 
@@ -17,7 +17,5 @@ namespace UmlDiagrams.Domain.Model
         public int Width { get; set; }
 
         public int Height { get; set; }
-
-        public DateTime CreateTime { get; set; }
     }
 }

@@ -18,12 +18,12 @@ namespace UmlDiagrams.Domain
         private UmlDiagramContext _diagramsContext = new UmlDiagramContext();
 
 
-        public IQueryable<Diagram> GetAllDiagrams()
+        public IQueryable<UmlDiagram> GetAllDiagrams()
         {
             return _diagramsContext.Diagrams;
         }
 
-        public Diagram GetDiagram(int id)
+        public UmlDiagram GetDiagram(int id)
         {
             return _diagramsContext.Diagrams.First(i => i.Id == id);
         }
@@ -38,13 +38,13 @@ namespace UmlDiagrams.Domain
             // проверка уникальности имени таблицы осуществляется базой данных (unique поле)
             try
             {
-                var diagram = new Diagram()
+                var diagram = new UmlDiagram()
                 {
                     Name = diagramName,
                     Author = author,
-                    Height = Diagram.DEFAULT_HEIGHT,
-                    Width = Diagram.DEFAULT_WIDTH,
-                    Actions = new List<UserAction>()
+                    Height = UmlDiagram.DEFAULT_HEIGHT,
+                    Width = UmlDiagram.DEFAULT_WIDTH,
+                    Elements = new List<UmlDiagramElement>()
                 };
                 diagram.CreateTime = diagram.LastEditTime = DateTime.Now;
                 _diagramsContext.Diagrams.Add(diagram);

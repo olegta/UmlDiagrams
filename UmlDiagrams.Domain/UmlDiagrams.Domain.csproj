@@ -51,12 +51,17 @@
   <ItemGroup>
     <Compile Include="DiagramsRepository.cs" />
     <Compile Include="IDiagramsRepository.cs" />
-    <Compile Include="Model\ActorElement.cs" />
-    <Compile Include="Model\ArrowElement.cs" />
-    <Compile Include="Model\Diagram.cs" />
-    <Compile Include="Model\DiagramElement.cs" />
-    <Compile Include="Model\UseCaseElement.cs" />
-    <Compile Include="Model\UserAction.cs" />
+    <Compile Include="Model\UmlAttribute.cs" />
+    <Compile Include="Model\UmlClass.cs" />
+    <Compile Include="Model\UmlComment.cs" />
+    <Compile Include="Model\UmlArrow.cs" />
+    <Compile Include="Model\UmlDiagram.cs" />
+    <Compile Include="Model\UmlArrowType.cs" />
+    <Compile Include="Model\UmlDiagramElement.cs" />
+    <Compile Include="Model\UmlEnumeration.cs" />
+    <Compile Include="Model\UmlInterface.cs" />
+    <Compile Include="Model\UmlLiteral.cs" />
+    <Compile Include="Model\UmlOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UmlDiagramContext.cs" />
   </ItemGroup>
