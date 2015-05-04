@@ -15,6 +15,14 @@ namespace UmlDiagrams.Domain.Model
         public const int DEFAULT_WIDTH = 800;
 
 
+        public UmlDiagram()
+        {
+            Elements = new List<UmlDiagramElement>();
+            Width = DEFAULT_WIDTH;
+            Height = DEFAULT_HEIGHT;
+        }
+
+
         public int Id { get; set; }
 
         public DateTime CreateTime { get; set; }

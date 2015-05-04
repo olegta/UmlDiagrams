@@ -1,0 +1,102 @@
+@icon-width: 28px;
+@icon-height: 21px;
+@toolbox-border: 1px;
+@side-containers-min-width: 150px;
+@diagram-side-margin: 5px;
+
+.toolbox-element {
+    border: @toolbox-border thick gray;
+    margin: 2px;
+    padding: 2px;
+    height: @icon-height + @toolbox-border * 2
+}
+
+.toolbox-element-over {
+    font-style: italic;
+    background: rgba(228, 245, 122, 0.80);
+}
+
+.toolbox-element-selected {
+    font-style: italic;
+    background: rgb(33, 71, 160);
+}
+
+#uml-elements-container {
+    min-width: @side-containers-min-width;
+    margin-right: @diagram-side-margin;
+}
+
+#element-properties {
+    min-width: @side-containers-min-width;
+    margin-left: @diagram-side-margin;
+}
+
+#diagram-container {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 8px;
+}
+
+.icon-base {
+    float: left;
+    clear: left;
+    width: @icon-width;
+    height: @icon-height;
+    border: double blue 0px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    background-image: url(diagram-icons.png);
+}
+.icon-pointer {
+    .icon-base;
+    background-position: 0px 273px;
+}
+.icon-class {
+    .icon-base;
+    background-position: 0px 252px;
+}
+.icon-interface {
+    .icon-base;
+    background-position: 0px 231px;
+}
+.icon-enumeration {
+    .icon-base;
+    background-position: 0px 210px;
+}
+.icon-package {
+    .icon-base;
+    background-position: 0px 189px;
+}
+.icon-comment {
+    .icon-base;
+    background-position: 0px 168px;
+}
+.icon-association {
+    .icon-base;
+    background-position: 0px 147px;
+}
+.icon-aggregation {
+    .icon-base;
+    background-position: 0px 126px;
+}
+.icon-composition {
+    .icon-base;
+    background-position: 0px 105px;
+}
+.icon-dependency {
+    .icon-base;
+    background-position: 0px 84px;
+}
+.icon-inheritance {
+    .icon-base;
+    background-position: 0px 63px;
+}
+.icon-package-import {
+    .icon-base;
+    background-position: 0px 42px;
+}
+.icon-connector {
+    .icon-base;
+    background-position: 0px 21px;
+}

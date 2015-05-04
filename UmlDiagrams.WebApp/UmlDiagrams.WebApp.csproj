@@ -39,15 +39,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dotless.Core">
+      <HintPath>..\packages\dotless.1.4.4\lib\dotless.Core.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="GoogleClosure">
-      <HintPath>..\packages\GoogleClosure.2.0.1.0\lib\net40\GoogleClosure.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -142,7 +142,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -154,12 +153,16 @@
     </Compile>
     <Compile Include="Hubs\DiagramDrawingHub.cs" />
     <Compile Include="Infrastructure\UmlDiagramsControllerFactory.cs" />
+    <Compile Include="Models\DiagramDrawingModel.cs" />
+    <Compile Include="Models\ToolboxElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\diagram-icons.png" />
+    <None Include="Content\icons.less" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -206,7 +209,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\Home\diagram-item.js" />
+    <Content Include="Scripts\Home\DiagramDrawing\initialization.js" />
+    <Content Include="Scripts\Home\DiagramDrawing\signalr-client.js" />
     <Content Include="Scripts\Home\diagrams-interaction.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -214,6 +218,8 @@
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\knockout-3.3.0.debug.js" />
+    <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -301,4 +307,11 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Target Name="CompileDotlessCss" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <__LessFiles Include="**\*.less" />
+    </ItemGroup>
+    <Exec Command="&quot;..\packages\dotless.1.4.4\tool\dotless.compiler.exe&quot; -m -a &quot;%(__LessFiles.FullPath)&quot; &quot;$([System.String]::Copy('%(__LessFiles.FullPath)').Replace('.less','.min.css'))&quot;" />
+    <Exec Command="&quot;..\packages\dotless.1.4.4\tool\dotless.compiler.exe&quot; -a &quot;%(__LessFiles.FullPath)&quot; &quot;$([System.String]::Copy('%(__LessFiles.FullPath)').Replace('.less','.css'))&quot;" />
+  </Target>
 </Project>

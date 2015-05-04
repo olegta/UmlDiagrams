@@ -16,7 +16,7 @@ namespace UmlDiagrams.WebApp
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
+            
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
@@ -24,8 +24,12 @@ namespace UmlDiagrams.WebApp
             bundles.Add(new ScriptBundle("~/bundles/diagrams-interaction").Include(
                 "~/Scripts/Home/diagrams-interaction.js"));
 
-            bundles.Add(new StyleBundle("~/Content/Site").Include(
-                "~/Content/Site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/DiagramDrawing").IncludeDirectory(
+                        "~/Scripts/Home/DiagramDrawing", "*.js", true));
+
+            bundles.Add(new StyleBundle("~/Content/Site").Include("~/Content/Site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/Icons").Include("~/Content/icons.css"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
 

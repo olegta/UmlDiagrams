@@ -23,7 +23,7 @@ namespace UmlDiagrams.Domain
             return _diagramsContext.Diagrams;
         }
 
-        public UmlDiagram GetDiagram(int id)
+        public UmlDiagram GetDiagram(int id) // TODO: обработка ситуации с несуществующем Id
         {
             return _diagramsContext.Diagrams.First(i => i.Id == id);
         }
@@ -42,9 +42,6 @@ namespace UmlDiagrams.Domain
                 {
                     Name = diagramName,
                     Author = author,
-                    Height = UmlDiagram.DEFAULT_HEIGHT,
-                    Width = UmlDiagram.DEFAULT_WIDTH,
-                    Elements = new List<UmlDiagramElement>()
                 };
                 diagram.CreateTime = diagram.LastEditTime = DateTime.Now;
                 _diagramsContext.Diagrams.Add(diagram);

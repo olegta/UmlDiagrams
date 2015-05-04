@@ -9,6 +9,7 @@
     @Styles.Render("~/Content/Site")
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Theme/redmond")
+    @RenderSection("styles", false)
     
 </head>
 <body draggable="false">
@@ -45,6 +46,6 @@
     
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/diagrams-interaction")
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", false)
 </body>
 </html>

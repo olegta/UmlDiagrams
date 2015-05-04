@@ -12,6 +12,7 @@ using UmlDiagrams.WebApp.Controllers;
 using UmlDiagrams.Domain.Model;
 using UmlDiagrams.Domain;
 using Moq;
+using UmlDiagrams.WebApp.Models;
 
 namespace UmlDiagrams.Tests.Controllers
 {
@@ -19,7 +20,7 @@ namespace UmlDiagrams.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void TestList()
         {
             var mock = new Mock<IDiagramsRepository>();
             mock.Setup(m => m.GetAllDiagrams()).Returns(
@@ -46,9 +47,8 @@ namespace UmlDiagrams.Tests.Controllers
             var controller = new HomeController(mock.Object);
             CreateResponseCookiesMock(controller);
 
-            var result = controller.Create(null, null) as RedirectToRouteResult;
+            RedirectToRouteResult result = controller.Create(null, null);
 
-            Assert.IsNotNull(result);
             Assert.AreEqual(result.RouteValues["controller"], "Home");
             Assert.AreEqual(result.RouteValues["action"], "Diagram");
             Assert.AreEqual(result.RouteValues["id"], 1);
@@ -84,7 +84,21 @@ namespace UmlDiagrams.Tests.Controllers
             Assert.AreEqual(result.RouteValues["action"], "Index");
         }
 
-        private static void CreateResponseCookiesMock(HomeController controller)
+        [TestMethod]
+        public void TestDiagram()
+        {
+            var mock = new Mock<IDiagramsRepository>();
+            mock.Setup(m => m.GetDiagram(0)).Returns(new UmlDiagram());
+            var controller = new HomeController(mock.Object);
+
+            var model = controller.Diagram(0).Model as DiagramDrawingModel;
+
+            Assert.IsNotNull(model);
+            Assert.IsNotNull(model.Diagram);
+            Assert.IsTrue(model.ToolboxElements.Any());
+        }
+
+        private void CreateResponseCookiesMock(HomeController controller)
         {
             var response = new Mock<HttpResponseBase>();
             var coockies = new HttpCookieCollection();

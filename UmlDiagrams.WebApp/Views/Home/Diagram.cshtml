@@ -1,15 +1,58 @@
-﻿@model UmlDiagrams.Domain.Model.UmlDiagram
+﻿@model UmlDiagrams.WebApp.Models.DiagramDrawingModel
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Converters
 @{
     ViewBag.Title = "Diagram";
+}
+
+@section styles
+{
+    @Styles.Render("~/Content/Icons")
 }
 
 @section scripts
 {
     <script type="text/javascript" src="../../Scripts/jquery.signalR-2.2.0.js"></script>
     <script type="text/javascript" src="~/signalr/hubs"></script>
-    <script type="text/javascript" src="../../Scripts/Home/diagram-item.js"></script>
+    @Scripts.Render("~/bundles/DiagramDrawing")
+    <script type="text/javascript">
+        "use strict";
+        $(function() {
+            var diagram = @Html.Raw(JsonConvert.SerializeObject(Model.Diagram, new IsoDateTimeConverter()));
+        });
+    </script>
 }
 
-<h2>Diagram</h2>
+<div>
+    <div>
+        <div style="float: left;">@Html.LabelFor(m => m.Diagram.Name)</div>
+        <div style="float: left;">@Html.EditorFor(m => m.Diagram.Name)</div>
+        <div style="float: left;">@Html.LabelFor(m => m.Diagram.Author)</div>
+        <div style="float: left;">@Html.DisplayFor(m => m.Diagram.Author)</div>
+        <div style="float: left;">@Html.LabelFor(m => m.Diagram.CreateTime)</div>
+        <div style="float: left;">@Html.DisplayFor(m => m.Diagram.CreateTime)</div>
+        <div style="float: left;">@Html.LabelFor(m => m.Diagram.LastEditTime)</div>
+        <div style="float: left;">@Html.DisplayFor(m => m.Diagram.LastEditTime)</div>
+    </div>
+    <div style="clear: both;">
+        <div id="uml-elements-container" style="float: left;">
+            <div><h5>Элементы</h5></div>
+            <div id="uml-elements-items">
+                @foreach (var toolboxItem in Model.ToolboxElements)
+                {
+                    <div id="@toolboxItem.DocumentId" class="toolbox-element">
+                        <div class="@toolboxItem.CssIconClass"></div>
+                        <div>@toolboxItem.Caption</div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="diagram-container"
+             style="float: left; width: @(Model.Diagram.Width + "px"); height: @(Model.Diagram.Height + "px")">
 
-
+        </div>
+        <div id="element-properties" style="float: left;">
+            <div><h5>Свойства</h5></div>
+        </div>
+    </div>
+</div>

@@ -15,8 +15,8 @@ namespace UmlDiagrams.Domain
             : base("UmlDiagramsContext")
         {
             Database.SetInitializer(
-                new DropCreateDatabaseAlways<UmlDiagramContext>()
-                //new CreateDatabaseIfNotExists<UmlDiagramContext>()
+                //new DropCreateDatabaseAlways<UmlDiagramContext>()
+                new CreateDatabaseIfNotExists<UmlDiagramContext>()
                 );
         }
 

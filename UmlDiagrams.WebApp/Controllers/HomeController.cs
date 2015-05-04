@@ -8,6 +8,7 @@ using Microsoft.AspNet.SignalR;
 using UmlDiagrams.Domain;
 using UmlDiagrams.Domain.Model;
 using UmlDiagrams.WebApp.Hubs;
+using UmlDiagrams.WebApp.Models;
 
 namespace UmlDiagrams.WebApp.Controllers
 {
@@ -48,7 +49,26 @@ namespace UmlDiagrams.WebApp.Controllers
 
         public ViewResult Diagram(int id)
         {
-            return View(_diagramsRepository.GetDiagram(id));
+            UmlDiagram diagram = _diagramsRepository.GetDiagram(id);
+            var toolboxItems = new List<ToolboxElement>()
+            {
+                new ToolboxElement("icon-pointer", "Указатель", "pointer-tool"),
+                new ToolboxElement("icon-class", "Класс", "uml-class-tool"),
+                new ToolboxElement("icon-interface", "Интерфейс", "uml-interface-tool"),
+                new ToolboxElement("icon-enumeration", "Перечисление", "uml-enumeration-tool"),
+                new ToolboxElement("icon-comment", "Комментарий", "uml-comment-tool"),
+                new ToolboxElement("icon-association", "Ассоциация", "arrow-association-tool"),
+                new ToolboxElement("icon-aggregation", "Агрегирование", "arrow-aggregation-tool"),
+                new ToolboxElement("icon-composition", "Композиция", "arrow-composition-tool"),
+                new ToolboxElement("icon-dependency", "Зависимость", "arrow-dependency-tool"),
+                new ToolboxElement("icon-inheritance", "Наследование", "arrow-inheritance-tool"),
+                new ToolboxElement("icon-connector", "Связь", "arrow-connector-tool"),
+            };
+            return View(new DiagramDrawingModel()
+            {
+                Diagram = diagram,
+                ToolboxElements = toolboxItems
+            });
         }
     }
 }
