@@ -1,0 +1,44 @@
+﻿.class-clone {
+    width: 200px;
+    height: 200px;
+    border: 3px inset #3c3b3b;
+    overflow: hidden;
+    border: 3px inset #3c3b3b;
+    background: rgba(236, 246, 114, 0.69);
+}
+
+#class-clone {
+    display: none;
+}
+
+.type-title-container {
+    margin-left: 4px;
+    margin-top: 2px;
+}
+
+@collapse-expand-icon-side: 16px;
+
+.expand-collapse-icon-base {
+    float: left;
+    width: @collapse-expand-icon-side;
+    height: @collapse-expand-icon-side;
+    margin: 4px;
+}
+
+.collapse-icon {
+    .expand-collapse-icon-base;
+    background-image: url(collapse-image.png);
+}
+
+.expand-icon {
+    .expand-collapse-icon-base;
+    background-image: url(expand-image.png);
+}
+
+.type-title {
+    font-weight: bold;
+}
+
+.type-content {
+    margin: 2px;
+}

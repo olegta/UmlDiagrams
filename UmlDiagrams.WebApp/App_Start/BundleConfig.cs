@@ -29,7 +29,9 @@ namespace UmlDiagrams.WebApp
 
             bundles.Add(new StyleBundle("~/Content/Site").Include("~/Content/Site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/Icons").Include("~/Content/icons.css"));
+            bundles.Add(new StyleBundle("~/Content/Drawing").Include(
+                        "~/Content/icons.css",
+                        "~/Content/uml-elements.css"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
 

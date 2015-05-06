@@ -7,7 +7,7 @@
 
 @section styles
 {
-    @Styles.Render("~/Content/Icons")
+    @Styles.Render("~/Content/Drawing")
 }
 
 @section scripts
@@ -16,10 +16,7 @@
     <script type="text/javascript" src="~/signalr/hubs"></script>
     @Scripts.Render("~/bundles/DiagramDrawing")
     <script type="text/javascript">
-        "use strict";
-        $(function() {
-            var diagram = @Html.Raw(JsonConvert.SerializeObject(Model.Diagram, new IsoDateTimeConverter()));
-        });
+        var diagram = @Html.Raw(JsonConvert.SerializeObject(Model.Diagram, new IsoDateTimeConverter()));
     </script>
 }
 
@@ -36,7 +33,8 @@
     </div>
     <div style="clear: both;">
         <div id="uml-elements-container" style="float: left;">
-            <div><h5>Элементы</h5></div>
+            <div><h5>Элементы</h5>
+            </div>
             <div id="uml-elements-items">
                 @foreach (var toolboxItem in Model.ToolboxElements)
                 {
@@ -52,7 +50,31 @@
 
         </div>
         <div id="element-properties" style="float: left;">
-            <div><h5>Свойства</h5></div>
+            <div><h5>Свойства</h5>
+            </div>
         </div>
+    </div>
+</div>
+<div id="class-clone" class="class-clone">
+    <div class="type-title-container">
+        <div class="collapse-icon"></div>
+        <div class="type-title" contenteditable="true">&lt;no_name&gt;</div>
+    </div>
+    <hr/>
+    <div class="type-content">
+        <div>
+            Аттрибуты
+        </div>
+        <ul>
+            <li>123</li>
+            <li>456</li>
+        </ul>
+        <div>
+            Операции
+        </div>
+        <ul>
+            <li>123</li>
+            <li>456</li>
+        </ul>
     </div>
 </div>
