@@ -23,7 +23,7 @@
 <div>
     <div>
         <div style="float: left;">@Html.LabelFor(m => m.Diagram.Name)</div>
-        <div style="float: left;">@Html.EditorFor(m => m.Diagram.Name)</div>
+        <div id="diagram-name" style="float: left;">@Html.EditorFor(m => m.Diagram.Name)</div>
         <div style="float: left;">@Html.LabelFor(m => m.Diagram.Author)</div>
         <div style="float: left;">@Html.DisplayFor(m => m.Diagram.Author)</div>
         <div style="float: left;">@Html.LabelFor(m => m.Diagram.CreateTime)</div>
@@ -55,12 +55,12 @@
         </div>
     </div>
 </div>
-<div id="class-clone" class="class-clone">
+<div id="class-clone" class="class-clone type-container">
     <div class="type-title-container">
         <div class="collapse-icon"></div>
         <div class="type-title" contenteditable="true">&lt;no_name&gt;</div>
     </div>
-    <hr/>
+    <hr />
     <div class="type-content">
         <div>
             Аттрибуты

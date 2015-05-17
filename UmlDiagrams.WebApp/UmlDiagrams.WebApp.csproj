@@ -212,6 +212,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Home\DiagramDrawing\Diagram.js" />
     <Content Include="Scripts\Home\DiagramDrawing\initialization.js" />
     <Content Include="Scripts\Home\DiagramDrawing\signalr-client.js" />
     <Content Include="Scripts\Home\diagrams-interaction.js" />

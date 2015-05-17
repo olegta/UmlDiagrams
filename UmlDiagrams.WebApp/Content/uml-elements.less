@@ -1,7 +1,14 @@
-﻿.class-clone {
+﻿hr {
+    margin-top: 0px;
+    margin-bottom: 3px;
+}
+
+.type-container {
     width: 200px;
     height: 200px;
-    border: 3px inset #3c3b3b;
+}
+
+.class-clone {
     overflow: hidden;
     border: 3px inset #3c3b3b;
     background: rgba(236, 246, 114, 0.69);
@@ -14,25 +21,27 @@
 .type-title-container {
     margin-left: 4px;
     margin-top: 2px;
+    margin-bottom: 5px;
 }
 
 @collapse-expand-icon-side: 16px;
 
-.expand-collapse-icon-base {
+.expand-collapse-icon-base(@url) {
     float: left;
     width: @collapse-expand-icon-side;
     height: @collapse-expand-icon-side;
     margin: 4px;
+    background-image: url(@url);
 }
 
 .collapse-icon {
-    .expand-collapse-icon-base;
-    background-image: url(collapse-image.png);
+    @url: "collapse-image.png";
+    .expand-collapse-icon-base(@url);
 }
 
 .expand-icon {
-    .expand-collapse-icon-base;
-    background-image: url(expand-image.png);
+    @url: "expand-image.png";
+    .expand-collapse-icon-base(@url);
 }
 
 .type-title {
