@@ -28,6 +28,7 @@ namespace UmlDiagrams.WebApp
                         "~/Scripts/Home/DiagramDrawing/diagram-states.js",
                         "~/Scripts/Home/DiagramDrawing/Diagram.js",
                         "~/Scripts/Home/DiagramDrawing/initialization.js",
+                        "~/Scripts/Home/DiagramDrawing/support-util.js",
                         "~/Scripts/Home/DiagramDrawing/signalr-client.js"
                         ));
 

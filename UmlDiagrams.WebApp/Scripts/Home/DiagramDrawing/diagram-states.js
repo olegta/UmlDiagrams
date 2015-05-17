@@ -29,14 +29,7 @@ ClassAdding.prototype.act = function (classDiv) {
         handles: "all"
     });
 
-    // support contenteditable in draggable
-    $(".type-title", classDiv).dblclick(function () {
-        classDiv.draggable({ disabled: true });
-        $(this).focus();
-    });
-    classDiv.click(function () {
-        classDiv.draggable({ disabled: false });
-    });
+    makeContenteditable($(".type-title", classDiv), classDiv);
 };
 
 function InterfaceAdding() {

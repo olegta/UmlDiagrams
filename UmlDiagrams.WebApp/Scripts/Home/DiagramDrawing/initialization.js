@@ -79,29 +79,6 @@
             var classDiv = ui.helper.clone();
             classDiv.removeClass(CREATING_ELEMENT_CLASS);
             diagram.act(classDiv);
-
-            if (ui.helper.hasClass(TOOLBOX_CLASS_CLASS)) {
-                console.log("add class");
-                diagram.addClass(ui.helper.clone()).call(this);
-            } else if (ui.helper.hasClass(TOOLBOX_INTERFACE_CLASS)) {
-                diagram.addClass(ui.helper.clone());
-            } else if (ui.helper.hasClass(TOOLBOX_ENUMERATION_CLASS)) {
-                diagram.addClass(ui.helper.clone());
-            } else if (ui.helper.hasClass(TOOLBOX_COMMENT_CLASS)) {-
-                diagram.addClass(ui.helper.clone());
-            } else if (ui.helper.hasClass(TOOLBOX_ASSOCIATION_CLASS)) {
-                diagram.addClass(ui.helper.clone());
-            } else if (ui.helper.hasClass(TOOLBOX_AGGREGATION_CLASS)) {
-                diagram.addClass(ui.helper.clone());
-            } else if (ui.helper.hasClass(TOOLBOX_COMPOSITION_CLASS)) {
-                diagram.addClass(ui.helper.clone());
-            } else if (ui.helper.hasClass(TOOLBOX_DEPENDENCY_CLASS)) {
-                diagram.addClass(ui.helper.clone());
-            } else if (ui.helper.hasClass(TOOLBOX_INHERITANCE_CLASS)) {
-                diagram.addClass(ui.helper.clone());
-            } else if (ui.helper.hasClass(TOOLBOX_CONNECTOR_CLASS)) {
-                diagram.addClass(ui.helper.clone());
-            }
         }
     }).resizable({
         
@@ -120,4 +97,20 @@
         $(this).toggleClass("collapse-icon");
         $(this).toggleClass("expand-icon");
     });
+
+    $(document).on("click", ".button-add-attribute", function () {
+        var container = $(this).closest(".type-container");
+        var creatingAttribute = $("<li>").attr("contenteditable", "true");
+        $(".attributes-list", container).append(creatingAttribute);
+        makeContenteditable(creatingAttribute, container);
+    });
+
+    $(document).on("click", ".button-add-operation", function () {
+        var container = $(this).closest(".type-container");
+        var creatingOperation = $("<li>").attr("contenteditable", "true");
+        $(".operations-list", container).append(creatingOperation);
+        makeContenteditable(creatingOperation, container);
+    });
+
+
 });
