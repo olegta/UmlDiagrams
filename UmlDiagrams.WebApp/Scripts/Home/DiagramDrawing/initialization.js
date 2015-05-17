@@ -43,6 +43,14 @@
         $(this).removeClass("toolbox-element-over");
     }).bind("mousedown", function () {
         var selected = this;
+        var classes = $(selected).children().first().attr("class").split(/\s+/);
+        for (var i = 0; i < classes.length; i++) {
+            if (Diagram.States.hasOwnProperty(classes[i])) {
+                console.dir(Diagram.States[classes[i]]);
+                diagram.setDrawingMode(Diagram.States[classes[i]]);
+                break;
+            }
+        }
         $(selected).addClass("toolbox-element-selected");
         toolboxItems.each(function () {
             $(this).removeClass("toolbox-element-over");
@@ -70,7 +78,7 @@
             console.log("add class");
             var classDiv = ui.helper.clone();
             classDiv.removeClass(CREATING_ELEMENT_CLASS);
-            diagram.addClass(classDiv, this);
+            diagram.act(classDiv);
 
             if (ui.helper.hasClass(TOOLBOX_CLASS_CLASS)) {
                 console.log("add class");

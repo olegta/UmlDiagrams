@@ -32,7 +32,6 @@ namespace UmlDiagrams.Tests
             Mock<HttpContextBase> mockContext = new Mock<HttpContextBase>();
             mockContext.Setup(m => m.Request).Returns(mockRequest.Object);
             mockContext.Setup(m => m.Response).Returns(mockResponse.Object);
-            // вернуть mock-контекст
             return mockContext.Object;
         }
 

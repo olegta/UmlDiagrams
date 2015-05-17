@@ -24,8 +24,12 @@ namespace UmlDiagrams.WebApp
             bundles.Add(new ScriptBundle("~/bundles/diagrams-interaction").Include(
                 "~/Scripts/Home/diagrams-interaction.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/DiagramDrawing").IncludeDirectory(
-                        "~/Scripts/Home/DiagramDrawing", "*.js", true));
+            bundles.Add(new ScriptBundle("~/bundles/DiagramDrawing").Include(
+                        "~/Scripts/Home/DiagramDrawing/diagram-states.js",
+                        "~/Scripts/Home/DiagramDrawing/Diagram.js",
+                        "~/Scripts/Home/DiagramDrawing/initialization.js",
+                        "~/Scripts/Home/DiagramDrawing/signalr-client.js"
+                        ));
 
             bundles.Add(new StyleBundle("~/Content/Site").Include("~/Content/Site.css"));
 

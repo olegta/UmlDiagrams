@@ -11,67 +11,51 @@ function Diagram(divElement) {
     var _height;
     var _elements = [];
     var _arrows = [];
+    /** @type DrawingState */
+    var _state = Diagram.States["icon-pointer"];
 
     self.rename = function(newName) {
         _name = newName;
-    }
+    };
 
     self.getName = function() {
         return _name;
-    }
+    };
 
     self.resize = function(width, height) {
         _width = width;
         _height = height;
-    }
+    };
 
     self.getWidth = function() {
         return _width;
-    }
+    };
 
     self.getHeight = function() {
         return _height;
-    }
+    };
 
-    self.addElement = function(element) {
-        
-    }
+    self.setDrawingMode = function (drawingMode) {
+        console.log("diagram state: " + _state);
+        _state = drawingMode;
+    };
 
-    self.addClass = function (classDiv, container) {
-        $("#diagram-container").append(classDiv);
-        var leftPosition = Number(classDiv.css("left").match(/\d+/)) - container.offsetLeft;
-        var topPosition = Number(classDiv.css("top").match(/\d+/)) - container.offsetTop;
-        classDiv.css({ "left": leftPosition + "px", "top": topPosition + "px" });
-        classDiv.draggable({
-            containment: "#diagram-container"
-        }).resizable({
-            handles: "all"
-        });
-
-        // support contenteditable in draggable 
-        $(".type-title", classDiv).dblclick(function () {
-            console.log("enable");
-            classDiv.draggable({ disabled: true });
-            $(this).focus();
-        });
-        classDiv.click(function () {
-            console.log("disable");
-            classDiv.draggable({ disabled: false });
-        });
-    }
+    self.act = function (uiHelper) {
+        console.dir(_state);
+        _state.act(uiHelper);
+    };
 }
 
-function DrawingState() { };
-
-DrawingState.prototype.act = function() {
-    throw new Error("Not implemented");
-};
-
-function PointerState() { };
-PointerState.prototype = Object.create(DrawingState);
-PointerState.prototype.act = function () { };
-
-function ClassAdding() { }
-
-ClassAdding.prototype = Object.create(DrawingState);
-
+Diagram.States = {
+    "icon-pointer": new PointerState(),
+    "icon-class": new ClassAdding(),
+    "icon-interface": new InterfaceAdding(),
+    "icon-enumeration": new EnumAdding(),
+    "icon-comment": new CommentAdding(),
+    "icon-association": new AssociationDrawing(),
+    "icon-aggregation": new AggregationDrawing(),
+    "icon-composition": new CompositionDrawing(),
+    "icon-dependency": new DependencyDrawing(),
+    "icon-inheritance": new InheritanceDrawing(),
+    "icon-connector": new ConnectorDrawing()
+}

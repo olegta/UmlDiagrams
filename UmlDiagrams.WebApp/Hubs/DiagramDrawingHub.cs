@@ -19,9 +19,9 @@ namespace UmlDiagrams.WebApp.Hubs
             
         }
 
-        public void addClass()
+        public void AddElement(string wrappedElement)
         {
-            
+            Clients.Others.addElement();
         }
     }
 }
