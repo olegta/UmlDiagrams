@@ -8,13 +8,44 @@
     height: 200px;
 }
 
-.class-clone {
+.type-clone() {
     overflow: hidden;
     border: 3px inset #3c3b3b;
-    background: rgba(236, 246, 114, 0.69);
+}
+
+.class-clone {
+    .type-clone;
+    background: rgba(68, 152, 243, 0.80);
+}
+
+.interface-clone {
+    .type-clone;
+    background: rgba(18, 193, 11, 0.80);
+}
+
+.enumeration-clone {
+    .type-clone;
+    background: rgba(207, 173, 43, 0.80);
+}
+
+.comment-clone {
+    .type-clone;
+    background: rgba(205, 245, 89, 0.80);
 }
 
 #class-clone {
+    display: none;
+}
+
+#interface-clone {
+    display: none;
+}
+
+#enumeration-clone {
+    display: none;
+}
+
+#comment-clone {
     display: none;
 }
 
@@ -73,10 +104,18 @@
 
 }
 
+.button-add-literal {
+
+}
+
 .attributes-list {
 
 }
 
 .operations-list {
+
+}
+
+.literals-list {
 
 }

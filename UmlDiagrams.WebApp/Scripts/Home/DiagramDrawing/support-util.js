@@ -8,7 +8,7 @@ function makeContenteditable(editable, container) {
          container.draggable({ disabled: true });
         $(this).focus();
     });
-     container.click(function () {
+    container.click(function () {
          container.draggable({ disabled: false });
     });
 }

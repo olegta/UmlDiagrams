@@ -61,29 +61,43 @@
 
     $("." + TOOLBOX_POINTER_CLASS).addClass(CREATING_ELEMENT_CLASS);
 
-    $(".icon-class").parent().draggable({
-        helper: function () {
-            return $("#class-clone").clone().css("display", "")
-                .removeAttr("id")
-                .addClass(CREATING_ELEMENT_CLASS);
-        },
-        cursorAt: { left: 0 }
-    });
+    var draggableItems = [
+        { icon: ".icon-class", helper: "#class-clone" },
+        { icon: ".icon-interface", helper: "#interface-clone" },
+        { icon: ".icon-enumeration", helper: "#enumeration-clone" },
+        { icon: ".icon-comment", helper: "#comment-clone" }
+    ];
+    for (var i = 0; i < draggableItems.length; i++) {
+        (function () { // сохраняем текущее значение счетчика
+            var draggableInfo = draggableItems[i];
+            $(draggableInfo.icon).parent().draggable({
+                helper: function() {
+                    return $(draggableInfo.helper).clone().css("display", "")
+                        .removeAttr("id")
+                        .addClass(CREATING_ELEMENT_CLASS);
+                },
+                cursorAt: { left: 0 }
+            });
+        })();
+    }
 
     $("#diagram-container").droppable({
         tolerance: "fit",
         drop: function (event, ui) {
             if (!ui.helper.hasClass(CREATING_ELEMENT_CLASS))
                 return;
-            console.log("add class");
-            var classDiv = ui.helper.clone();
-            classDiv.removeClass(CREATING_ELEMENT_CLASS);
-            diagram.act(classDiv);
+            var newItemDiv = ui.helper.clone();
+            newItemDiv.removeClass(CREATING_ELEMENT_CLASS);
+            var leftPosition = Number(newItemDiv.css("left").match(/\d+/))
+                - $("#diagram-container")[0].offsetLeft;
+            var topPosition = Number(newItemDiv.css("top").match(/\d+/))
+                - $("#diagram-container")[0].offsetTop;
+            diagram.act(newItemDiv, leftPosition, topPosition);
         }
     }).resizable({
         
-    }).click(function () {
-        
+    }).click(function (event) {
+        diagram.act(newItemDiv, event.pageX, event.pageY);
     });
     $(document).on("click", ".collapse-icon,.expand-icon", function () {
         var typeContainer = $(this).closest(".type-container");
@@ -99,18 +113,22 @@
     });
 
     $(document).on("click", ".button-add-attribute", function () {
-        var container = $(this).closest(".type-container");
-        var creatingAttribute = $("<li>").attr("contenteditable", "true");
-        $(".attributes-list", container).append(creatingAttribute);
-        makeContenteditable(creatingAttribute, container);
+        addItemsLine.call(this, ".attributes-list");
     });
 
     $(document).on("click", ".button-add-operation", function () {
-        var container = $(this).closest(".type-container");
-        var creatingOperation = $("<li>").attr("contenteditable", "true");
-        $(".operations-list", container).append(creatingOperation);
-        makeContenteditable(creatingOperation, container);
+        addItemsLine.call(this, ".operations-list");
     });
 
-
+    $(document).on("click", ".button-add-literal", function () {
+        addItemsLine.call(this, ".literals-list");
+    });
 });
+
+function addItemsLine(listSelector) {
+    var container = $(this).closest(".type-container");
+    var creatingItem = $("<li>").attr("contenteditable", "true");
+    $(listSelector, container).append(creatingItem);
+    makeContenteditable(creatingItem, container);
+    $(creatingItem).focus();
+}

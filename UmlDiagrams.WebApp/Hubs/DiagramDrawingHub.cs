@@ -16,7 +16,7 @@ namespace UmlDiagrams.WebApp.Hubs
 
         public void RenameDiagram(string newName)
         {
-            
+            Clients.Others.addDiagram();
         }
 
         public void AddElement(string wrappedElement)

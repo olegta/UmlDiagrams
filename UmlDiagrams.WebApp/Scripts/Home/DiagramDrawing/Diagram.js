@@ -36,14 +36,17 @@ function Diagram(divElement) {
     };
 
     self.setDrawingMode = function (drawingMode) {
-        console.log("diagram state: " + _state);
         _state = drawingMode;
+        console.dir(_state);
     };
 
     self.act = function (uiHelper) {
         console.dir(_state);
         _state.act(uiHelper);
     };
+
+    self.getDivForDrawingMode = function () {
+    }
 }
 
 Diagram.States = {
