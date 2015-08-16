@@ -6,12 +6,17 @@ DrawingState.prototype.act = function () {
     throw new Error("Not implemented");
 };
 
+DrawingState.prototype.getHelper = function () {
+    throw new Error("Not implemented");
+};
+
 
 function PointerState() {
     DrawingState.apply(this, arguments);
 }
 PointerState.prototype = Object.create(DrawingState.prototype);
 PointerState.prototype.act = function () { };
+PointerState.prototype.getHelper = function () { };
 
 
 function UmlItemAdding() {
@@ -24,15 +29,22 @@ UmlItemAdding.prototype.act = function (umlItemDiv, leftPosition, topPosition) {
     umlItemDiv.css({ "left": leftPosition + "px", "top": topPosition + "px" });
 };
 
+UmlItemAdding.prototype.copyClone = function (helperId) {
+    return $("#" + helperId)
+        .clone()
+        .css("display:", "")
+        .removeAttr("id");
+};
 
-function ClassAdding() {
+
+function ClassAdding() { 
     DrawingState.apply(this, arguments);
 }
 
 ClassAdding.prototype = Object.create(UmlItemAdding.prototype);
 
-ClassAdding.prototype.act = function (classDiv) {
-    UmlItemAdding.prototype.act.call(this, classDiv);
+ClassAdding.prototype.act = function (classDiv, leftPosition, topPosition) {
+    UmlItemAdding.prototype.act.call(this, classDiv, leftPosition, topPosition);
     classDiv.draggable({
         containment: "#diagram-container"
     }).resizable({
@@ -41,14 +53,19 @@ ClassAdding.prototype.act = function (classDiv) {
     makeContenteditable($(".type-title", classDiv), classDiv);
 };
 
+ClassAdding.prototype.getHelper = function () {
+    return this.copyClone("class-clone");
+}
+
 
 function InterfaceAdding() {
     DrawingState.apply(this, arguments);
 }
 
 InterfaceAdding.prototype = Object.create(UmlItemAdding.prototype);
-InterfaceAdding.prototype.act = function (interfaceDiv) {
-    UmlItemAdding.prototype.act.call(this, interfaceDiv);
+
+InterfaceAdding.prototype.act = function (interfaceDiv, leftPosition, topPosition) {
+    UmlItemAdding.prototype.act.call(this, interfaceDiv, leftPosition, topPosition);
     interfaceDiv.draggable({
         containment: "#diagram-container"
     }).resizable({
@@ -58,14 +75,18 @@ InterfaceAdding.prototype.act = function (interfaceDiv) {
     makeContenteditable($(".type-title", interfaceDiv), interfaceDiv);
 };
 
+InterfaceAdding.prototype.getHelper = function () {
+    return this.copyClone("interface-clone");
+}
+
 
 function EnumAdding() {
     DrawingState.apply(this, arguments);
 }
 
 EnumAdding.prototype = Object.create(UmlItemAdding.prototype);
-EnumAdding.prototype.act = function (enumDiv) {
-    UmlItemAdding.prototype.act.call(this, enumDiv);
+EnumAdding.prototype.act = function (enumDiv, leftPosition, topPosition) {
+    UmlItemAdding.prototype.act.call(this, enumDiv, leftPosition, topPosition);
     enumDiv.draggable({
         containment: "#diagram-container"
     }).resizable({
@@ -75,14 +96,18 @@ EnumAdding.prototype.act = function (enumDiv) {
     makeContenteditable($(".type-title", enumDiv), enumDiv);
 };
 
+EnumAdding.prototype.getHelper = function () {
+    return this.copyClone("enumeration-clone");
+}
+
 
 function CommentAdding() {
     DrawingState.apply(this, arguments);
 }
 
 CommentAdding.prototype = Object.create(UmlItemAdding.prototype);
-CommentAdding.prototype.act = function(commentDiv) {
-    UmlItemAdding.prototype.act.call(this, commentDiv);
+CommentAdding.prototype.act = function (commentDiv, leftPosition, topPosition) {
+    UmlItemAdding.prototype.act.call(this, commentDiv, leftPosition, topPosition);
     commentDiv.draggable({
         containment: "#diagram-container"
     }).resizable({
@@ -90,6 +115,10 @@ CommentAdding.prototype.act = function(commentDiv) {
     });
     makeContenteditable($(".comment-clone", commentDiv), commentDiv);
 };
+
+CommentAdding.prototype.getHelper = function () {
+    return this.copyClone("comment-clone");
+}
 
 
 function AssociationDrawing() {

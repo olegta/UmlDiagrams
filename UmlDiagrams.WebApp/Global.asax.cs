@@ -9,7 +9,7 @@ using UmlDiagrams.WebApp.Infrastructure;
 
 namespace UmlDiagrams.WebApp
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {

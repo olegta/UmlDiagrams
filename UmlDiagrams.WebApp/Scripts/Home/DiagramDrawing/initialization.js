@@ -86,13 +86,16 @@
         drop: function (event, ui) {
             if (!ui.helper.hasClass(CREATING_ELEMENT_CLASS))
                 return;
-            var newItemDiv = ui.helper.clone();
-            newItemDiv.removeClass(CREATING_ELEMENT_CLASS);
-            var leftPosition = Number(newItemDiv.css("left").match(/\d+/))
+            var activeElement = diagram.getHelper();
+            if (!activeElement)
+                throw new Error("droped element not found");
+            activeElement.removeClass(CREATING_ELEMENT_CLASS);
+            var leftPosition = Number(ui.helper.css("left").match(/\d+/))
                 - $("#diagram-container")[0].offsetLeft;
-            var topPosition = Number(newItemDiv.css("top").match(/\d+/))
+            var topPosition = Number(ui.helper.css("top").match(/\d+/))
                 - $("#diagram-container")[0].offsetTop;
-            diagram.act(newItemDiv, leftPosition, topPosition);
+            alert(leftPosition + " " + topPosition);
+            diagram.act(activeElement, leftPosition, topPosition);
         }
     }).resizable({
         

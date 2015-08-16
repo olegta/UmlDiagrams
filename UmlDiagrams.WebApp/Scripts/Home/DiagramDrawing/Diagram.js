@@ -37,16 +37,18 @@ function Diagram(divElement) {
 
     self.setDrawingMode = function (drawingMode) {
         _state = drawingMode;
-        console.dir(_state);
     };
 
-    self.act = function (uiHelper) {
-        console.dir(_state);
-        _state.act(uiHelper);
+    self.act = function (uiHelper, leftPosition, topPosition) {
+        _state.act(uiHelper, leftPosition, topPosition);
+    };
+
+    self.getHelper = function () {
+        return _state.getHelper();
     };
 
     self.getDivForDrawingMode = function () {
-    }
+    };
 }
 
 Diagram.States = {
