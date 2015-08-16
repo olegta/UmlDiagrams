@@ -13,6 +13,7 @@ using UmlDiagrams.Domain.Model;
 using UmlDiagrams.Domain;
 using Moq;
 using UmlDiagrams.WebApp.Models;
+using UmlDiagrams.Domain.Repositories;
 
 namespace UmlDiagrams.Tests.Controllers
 {

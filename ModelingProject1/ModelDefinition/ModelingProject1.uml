@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/UseCaseModel"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/dsltools/UseCaseModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="26dfbea2-b38b-4161-95b5-8b1347c57fa8"
   name="ModelingProject1" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -13,6 +13,8 @@
           LastKnownLocation="ModelingProject1.uml" />
       </annotatedElements>
     </comment>
+    <comment
+      Id="d8c9ee39-7b3d-4845-82d1-9bf68b87e18a" />
   </ownedCommentsInternal>
   <profileInstances>
     <packageHasProfileInstances
@@ -156,55 +158,10 @@
       </actor>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <class
-        Id="a906c59f-69d2-4d1c-a916-fad1aaa52a15"
-        name="Class1"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <ownedAttributesInternal>
-          <property
-            Id="6b7ba593-9d9a-4639-9ed9-2a49de32d35b"
-            name="Attribute1"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false" />
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation
-            Id="c94d2cfc-9e1f-4398-a543-11456fb75176"
-            name="Operation1"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false" />
-        </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <Interface
-        Id="e57b742a-8c54-4b9f-b1f9-3f6d3336c3fc"
-        name="Interface1"
-        isAbstract="false"
-        isLeaf="false" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <enumeration
-        Id="28962ccb-d029-488d-9e5a-8670b2a0e75e"
-        name="Enumeration1"
-        isAbstract="false"
-        isLeaf="false">
-        <ownedLiterals>
-          <enumerationLiteral
-            Id="7038ef54-c363-4327-bac1-49c060e840d1"
-            name="Literal1" />
-        </ownedLiterals>
-      </enumeration>
+      <packageMoniker
+        Id="bb768e7a-7519-463e-9e4e-13aeed60ccc6"
+        LastKnownName="анон"
+        LastKnownLocation="Package_1751.uml" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

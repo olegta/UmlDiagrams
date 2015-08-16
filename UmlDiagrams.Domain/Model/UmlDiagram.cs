@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace UmlDiagrams.Domain.Model
 {
-    public class UmlDiagram
+    public class UmlDiagram : IDbEntity
     {
         public const int DEFAULT_HEIGHT = 600;
 

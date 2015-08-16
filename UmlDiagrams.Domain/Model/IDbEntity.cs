@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace UmlDiagrams.Domain.Model
 {
-    public class UmlOperation : IDbEntity
+    public interface IDbEntity
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
+        int Id { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using NLog;
 using UmlDiagrams.Domain.Model;
 
-namespace UmlDiagrams.Domain
+namespace UmlDiagrams.Domain.Repositories
 {
     public class DiagramsRepository : IDiagramsRepository
     {

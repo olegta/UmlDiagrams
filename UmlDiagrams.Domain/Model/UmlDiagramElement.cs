@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UmlDiagrams.Domain.Model
 {
-    public abstract class UmlDiagramElement
+    public abstract class UmlDiagramElement : IDbEntity
     {
         public int Id { get; set; }
 

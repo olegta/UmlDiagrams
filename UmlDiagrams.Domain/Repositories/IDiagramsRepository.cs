@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UmlDiagrams.Domain.Model;
 
-namespace UmlDiagrams.Domain
+namespace UmlDiagrams.Domain.Repositories
 {
     public interface IDiagramsRepository
     {

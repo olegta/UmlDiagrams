@@ -9,6 +9,7 @@ using UmlDiagrams.Domain;
 using UmlDiagrams.Domain.Model;
 using UmlDiagrams.WebApp.Hubs;
 using UmlDiagrams.WebApp.Models;
+using UmlDiagrams.Domain.Repositories;
 
 namespace UmlDiagrams.WebApp.Controllers
 {

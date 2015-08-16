@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Ninject;
 using UmlDiagrams.Domain;
+using UmlDiagrams.Domain.Repositories;
 
 namespace UmlDiagrams.WebApp.Infrastructure
 {

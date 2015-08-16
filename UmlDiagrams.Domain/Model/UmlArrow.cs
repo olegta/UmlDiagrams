@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UmlDiagrams.Domain.Model
 {
-    public class UmlArrow
+    public class UmlArrow : IDbEntity
     {
         public int Id { get; set; }
 
