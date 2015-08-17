@@ -27,7 +27,7 @@
     var TOOLBOX_CONNECTOR_CLASS = "icon-connector";
 
 
-    var diagram = new Diagram();
+    var diagram = new Diagram($("#diagram-container"), $("#diagram-container canvas"));
 
 
     var toolboxItems = $("#uml-elements-items").children();
@@ -98,9 +98,9 @@
             diagram.act(activeElement, leftPosition, topPosition);
         }
     }).resizable({
-        
+        stop: diagram.resize
     }).click(function (event) {
-        diagram.act(newItemDiv, event.pageX, event.pageY);
+        // diagram.act(newItemDiv, event.pageX, event.pageY);
     });
     $(document).on("click", ".collapse-icon,.expand-icon", function () {
         var typeContainer = $(this).closest(".type-container");

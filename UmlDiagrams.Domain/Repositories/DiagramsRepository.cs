@@ -10,7 +10,7 @@ using UmlDiagrams.Domain.Model;
 
 namespace UmlDiagrams.Domain.Repositories
 {
-    public class DiagramsRepository : IDiagramsRepository
+    public class DiagramsRepository : IDiagramsRepository, IDisposable
     {
         private static Logger log = LogManager.GetCurrentClassLogger();
 
@@ -61,6 +61,11 @@ namespace UmlDiagrams.Domain.Repositories
         }
 
         ~DiagramsRepository()
+        {
+            _diagramsContext.Dispose();
+        }
+
+        public void Dispose()
         {
             _diagramsContext.Dispose();
         }

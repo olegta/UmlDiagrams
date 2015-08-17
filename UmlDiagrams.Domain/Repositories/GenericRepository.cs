@@ -12,13 +12,15 @@ namespace UmlDiagrams.Domain.Repositories
     {
         internal UmlDiagramContext Context { get; private set; }
 
-        public UnitOfWork UnitOfWork { get; private set; }
+        public EfUnitOfWork UnitOfWork { get; private set; }
 
-        public GenericRepository(UnitOfWork unitOfWork)
+
+        internal GenericRepository(EfUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
             Context = unitOfWork.Context;
         }
+
 
         public virtual IQueryable<T> GetAll()
         {

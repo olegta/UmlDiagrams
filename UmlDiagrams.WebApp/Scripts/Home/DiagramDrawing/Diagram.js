@@ -2,13 +2,11 @@
  * Diagram class
  * @param {jQuery} divElement 
  */
-function Diagram(divElement) {
+function Diagram(divElement, canvasElement) {
     var self = this;
 
     var _divElement = divElement;
-    var _name = $("#diagram-name", _divElement).val();// TODO: init variables
-    var _width;
-    var _height;
+    var _arrowsCanvas = canvasElement;
     var _elements = [];
     var _arrows = [];
     /** @type DrawingState */
@@ -49,6 +47,27 @@ function Diagram(divElement) {
 
     self.getDivForDrawingMode = function () {
     };
+
+    self.resize = function (event, ui) {
+        _arrowsCanvas.prop("width", ui.size.width);
+        _arrowsCanvas.prop("height", ui.size.height);
+        for (var i = 0; i < _arrows.length; i++) {
+            _arrows[i].draw();
+        }
+        var context = _arrowsCanvas[0].getContext('2d');
+        //alert(context);
+        //// Рисуем окружность 
+        context.strokeStyle = "#050";
+        //context.fillStyle = "#fc0";
+        context.beginPath();
+        context.arc(100, 100, 50, 0, Math.PI * 2, true);
+        context.moveTo(100, 100);
+        context.lineTo(50, 50);
+        context.closePath();
+        context.stroke();
+        context.fill();
+        // TODO: signal R
+    }
 }
 
 Diagram.States = {
