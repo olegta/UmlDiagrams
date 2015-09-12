@@ -1,27 +1,47 @@
 ﻿"use strict";
 
 // todo: code duplicates in show methods and title elements match
-function UmlElement(div, diagram, top, left, title) {
+function UmlElement(div, diagram, top, left, title, width, height) {
     this._id = guid();
     this._umlItemDiv = div;
     this._topPosition = top;
     this._leftPosition = left;
     this._diagram = diagram;
-    this._width = div.width();
-    this._height = div.height();
+    if (width)
+        this._width = Number(div.width());
+    if (height)
+        this._height = Number(div.height());
     this._title = title;
+    this._arrows = [];
 };
 
 UmlElement.prototype.show = function () {
     var self = this;
-    $("#diagram-container").append(self._umlItemDiv);
+    this._diagram.getDiagramContainer().append(self._umlItemDiv);
     self._umlItemDiv.css({ "left": self._leftPosition + "px", "top": self._topPosition + "px" });
     self._umlItemDiv.draggable({
-        containment: "#diagram-container"
+        containment: this._diagram.getDiagramContainer(),
+        stop: function (event, ui) {
+            self._topPosition = ui.position.top;
+            self._leftPosition = ui.position.left;
+            console.log(self);
+            // todo signal R: notifyUmlElementDragged(self)
+        }
     }).resizable({
-        handles: "all"
+        handles: "all",
+        stop: function (event, ui) {
+            self._width = Number(self._umlItemDiv.width());
+            self._height = Number(self._umlItemDiv.height());
+            // todo signal R: notifyUmlElementResized(self)
+            console.log(self);
+        }
     });
+
+    this._width = Number(this._umlItemDiv.width());
+    this._height = Number(this._umlItemDiv.height());
+
     makeContenteditable($(".type-title", self._umlItemDiv), self._umlItemDiv);
+
     $(self._umlItemDiv).on("click", ".button-add-attribute", function () {
         self.newAttribute();
         self.addItemsLine.call(self, ".attributes-list");
@@ -69,8 +89,8 @@ UmlElement.prototype.newLiteral = function () {
 
 
 
-function UmlClass(div, diagram, top, left) {
-    UmlElement.call(this, div, diagram, top, left, $(".type-title", div).text());
+function UmlClass(div, diagram, top, left, width, height) {
+    UmlElement.call(this, div, diagram, top, left, $(".type-title", div).text(), width, height);
     this._attributes = [];
     this._operations = [];
 };
@@ -91,8 +111,8 @@ UmlClass.prototype.newOperation = function () {
 
 
 
-function UmlInterface(div, diagram, top, left) {
-    UmlElement.call(this, div, diagram, top, left, $(".type-title", div).text());
+function UmlInterface(div, diagram, top, left, width, height) {
+    UmlElement.call(this, div, diagram, top, left, $(".type-title", div).text(), width, height);
     this._operations = [];
 };
 
@@ -108,8 +128,8 @@ UmlClass.prototype.newOperation = function () {
 
 
 
-function UmlEnum(div, diagram, top, left) {
-    UmlElement.call(this, div, diagram, top, left, $(".type-title", div).text());
+function UmlEnum(div, diagram, top, left, width, height) {
+    UmlElement.call(this, div, diagram, top, left, $(".type-title", div).text(), width, height);
     this._literals = [];
 };
 
@@ -125,8 +145,8 @@ UmlClass.prototype.newLiteral = function () {
 
 
 
-function UmlComment(div, diagram, top, left) {
-    UmlElement.call(this, div, diagram, top, left, $(".type-title", div).text());
+function UmlComment(div, diagram, top, left, width, height) {
+    UmlElement.call(this, div, diagram, top, left, $(".type-title", div).text(), width, height);
 }
 
 UmlComment.prototype = Object.create(UmlElement.prototype);

@@ -56,14 +56,19 @@ function Diagram(divElement) {
         for (var i = 0; i < _arrows.length; i++) {
             _arrows[i].draw();
         }
-        // TODO: signal R
+        // TODO: signal R notifyDiagramResize(self)
     };
 
     self.addItem = function (umlItem) {
         _elements.push(umlItem);
         umlItem.setDiadram(self);
         umlItem.show();
+        // TODO: signal R notifyUmlElementAdded(umlItem)
     };
+
+    self.getDiagramContainer = function () {
+        return _divElement;
+    }
 }
 
 Diagram.States = {
