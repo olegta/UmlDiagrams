@@ -219,6 +219,7 @@
     <Content Include="Scripts\Home\DiagramDrawing\signalr-client.js" />
     <Content Include="Scripts\Home\DiagramDrawing\support-util.js" />
     <Content Include="Scripts\Home\DiagramDrawing\UmlElement.js" />
+    <Content Include="Scripts\Home\DiagramDrawing\UmlItemMember.js" />
     <Content Include="Scripts\Home\diagrams-interaction.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -68,5 +68,5 @@ function guid() {
         }
 
         return uuid.join('');
-    };
+    }();
 };

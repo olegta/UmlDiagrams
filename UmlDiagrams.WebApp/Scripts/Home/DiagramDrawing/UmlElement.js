@@ -24,7 +24,6 @@ UmlElement.prototype.show = function () {
         stop: function (event, ui) {
             self._topPosition = ui.position.top;
             self._leftPosition = ui.position.left;
-            console.log(self);
             // todo signal R: notifyUmlElementDragged(self)
         }
     }).resizable({
@@ -33,28 +32,31 @@ UmlElement.prototype.show = function () {
             self._width = Number(self._umlItemDiv.width());
             self._height = Number(self._umlItemDiv.height());
             // todo signal R: notifyUmlElementResized(self)
-            console.log(self);
-        }
+        } 
     });
 
     this._width = Number(this._umlItemDiv.width());
     this._height = Number(this._umlItemDiv.height());
 
     makeContenteditable($(".type-title", self._umlItemDiv), self._umlItemDiv);
+    $(".type-title", self._umlItemDiv).bind("input", function () {
+        self._title = $(this).text();
+        // todo: signal R: notifyUmlElementRenamed(self);
+    });
 
     $(self._umlItemDiv).on("click", ".button-add-attribute", function () {
-        self.newAttribute();
-        self.addItemsLine.call(self, ".attributes-list");
+        var attribute = self.newAttribute();
+        self.addItemsLine.call(self, ".attributes-list", attribute);
     });
 
     $(self._umlItemDiv).on("click", ".button-add-operation", function () {
-        self.newOperation();
-        self.addItemsLine.call(self, ".operations-list");
+        var operation = self.newOperation();
+        self.addItemsLine.call(self, ".operations-list", operation);
     });
 
     $(self._umlItemDiv).on("click", ".button-add-literal", function () {
-        self.newLiteral();
-        self.addItemsLine.call(self, ".literals-list");
+        var literal = self.newLiteral();
+        self.addItemsLine.call(self, ".literals-list", literal);
     });
 };
 
@@ -68,10 +70,14 @@ UmlElement.prototype.setId = function (id) {
     this._id = id;
 };
 
-UmlElement.prototype.addItemsLine = function (listSelector) {
-    var creatingItem = $("<li>").attr("contenteditable", "true");
+UmlElement.prototype.addItemsLine = function (listSelector, umlItemMember) {
+    var creatingItem = $("<li>").attr("contenteditable", "true").text(umlItemMember.getName());
     $(listSelector, this._umlItemDiv).append(creatingItem);
     makeContenteditable(creatingItem, this._umlItemDiv);
+    creatingItem.bind("input", function() {
+        umlItemMember.setName($(this).text());
+        // todo: signal R notifyItemMemberChanged(umlItemMember)
+    });
     $(creatingItem).focus();
 }
 
@@ -102,11 +108,17 @@ UmlClass.prototype.show = function() {
 };
 
 UmlClass.prototype.newAttribute = function () {
-    this._attributes.push("");
+    var attribute = new UmlAttribute();
+    this._attributes.push(attribute);
+    // todo: signal R notifyAttributeAdded(operation)
+    return attribute;
 }
 
 UmlClass.prototype.newOperation = function () {
-    this._operations.push("");
+    var operation = new UmlOperation();
+    this._operations.push(operation);
+    // todo: signal R notifyOperationAdded(operation)
+    return operation;
 }
 
 
@@ -122,8 +134,11 @@ UmlInterface.prototype.show = function() {
     UmlElement.prototype.show.apply(this, arguments);
 };
 
-UmlClass.prototype.newOperation = function () {
-    this._operations.push("");
+UmlInterface.prototype.newOperation = function () {
+    var operation = new UmlOperation();
+    this._operations.push(operation);
+    // todo: signal R notifyOperationAdded(operation)
+    return operation;
 }
 
 
@@ -139,8 +154,11 @@ UmlEnum.prototype.show = function() {
     UmlElement.prototype.show.apply(this, arguments);
 };
 
-UmlClass.prototype.newLiteral = function () {
-    this._literals.push("");
+UmlEnum.prototype.newLiteral = function () {
+    var literal = new UmlLiteral();
+    this._literals.push(literal);
+    // todo: signal R notifyLiteralAdded(operation)
+    return literal;
 }
 
 
