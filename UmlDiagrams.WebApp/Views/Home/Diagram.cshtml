@@ -16,7 +16,7 @@
     <script type="text/javascript" src="~/signalr/hubs"></script>
     @Scripts.Render("~/bundles/DiagramDrawing")
     <script type="text/javascript">
-        var diagram = @Html.Raw(JsonConvert.SerializeObject(Model.Diagram, new IsoDateTimeConverter()));
+        var diagramData = @Html.Raw(JsonConvert.SerializeObject(Model.Diagram, new IsoDateTimeConverter()));
     </script>
 }
 
@@ -47,8 +47,6 @@
         </div>
         <div id="diagram-container"
              style="float: left; width: @(Model.Diagram.Width + "px"); height: @(Model.Diagram.Height + "px")">
-            <canvas id="diagrams-lines">
-            </canvas>
         </div>
         <div id="element-properties" style="float: left;">
             <div><h5>Свойства</h5>

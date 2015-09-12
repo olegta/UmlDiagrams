@@ -1,5 +1,10 @@
 ﻿"use strict";
 
+var CLASS_TYPE = "class";
+var INTERFACE_TYPE = "interface";
+var ENUM_TYPE = "enum";
+var COMMENT_TYPE = "comment";
+
 function DrawingState() { };
 
 DrawingState.prototype.act = function () {
@@ -8,6 +13,10 @@ DrawingState.prototype.act = function () {
 
 DrawingState.prototype.getHelper = function () {
     throw new Error("Not implemented");
+};
+
+DrawingState.prototype.setDiagram = function (diagram) {
+    this._diagram = diagram;
 };
 
 
@@ -24,9 +33,8 @@ function UmlItemAdding() {
 }
 UmlItemAdding.prototype = Object.create(DrawingState.prototype);
 
-UmlItemAdding.prototype.act = function (umlItemDiv, leftPosition, topPosition) {
-    $("#diagram-container").append(umlItemDiv);
-    umlItemDiv.css({ "left": leftPosition + "px", "top": topPosition + "px" });
+UmlItemAdding.prototype.act = function (umlItem) {
+    this._diagram.addItem(umlItem);
 };
 
 UmlItemAdding.prototype.copyClone = function (helperId) {
@@ -44,13 +52,8 @@ function ClassAdding() {
 ClassAdding.prototype = Object.create(UmlItemAdding.prototype);
 
 ClassAdding.prototype.act = function (classDiv, leftPosition, topPosition) {
-    UmlItemAdding.prototype.act.call(this, classDiv, leftPosition, topPosition);
-    classDiv.draggable({
-        containment: "#diagram-container"
-    }).resizable({
-        handles: "all"
-    });
-    makeContenteditable($(".type-title", classDiv), classDiv);
+    UmlItemAdding.prototype.act.call(this,
+        new UmlClass(classDiv, this._diagram, topPosition, leftPosition));
 };
 
 ClassAdding.prototype.getHelper = function () {
@@ -65,14 +68,8 @@ function InterfaceAdding() {
 InterfaceAdding.prototype = Object.create(UmlItemAdding.prototype);
 
 InterfaceAdding.prototype.act = function (interfaceDiv, leftPosition, topPosition) {
-    UmlItemAdding.prototype.act.call(this, interfaceDiv, leftPosition, topPosition);
-    interfaceDiv.draggable({
-        containment: "#diagram-container"
-    }).resizable({
-        handles: "all"
-    });
-
-    makeContenteditable($(".type-title", interfaceDiv), interfaceDiv);
+    UmlItemAdding.prototype.act.call(this,
+        new UmlInterface(interfaceDiv, this._diagram, topPosition, leftPosition));
 };
 
 InterfaceAdding.prototype.getHelper = function () {
@@ -86,14 +83,8 @@ function EnumAdding() {
 
 EnumAdding.prototype = Object.create(UmlItemAdding.prototype);
 EnumAdding.prototype.act = function (enumDiv, leftPosition, topPosition) {
-    UmlItemAdding.prototype.act.call(this, enumDiv, leftPosition, topPosition);
-    enumDiv.draggable({
-        containment: "#diagram-container"
-    }).resizable({
-        handles: "all"
-    });
-
-    makeContenteditable($(".type-title", enumDiv), enumDiv);
+    UmlItemAdding.prototype.act.call(this,
+        new UmlEnum(enumDiv, this._diagram, topPosition, leftPosition));
 };
 
 EnumAdding.prototype.getHelper = function () {
@@ -107,13 +98,7 @@ function CommentAdding() {
 
 CommentAdding.prototype = Object.create(UmlItemAdding.prototype);
 CommentAdding.prototype.act = function (commentDiv, leftPosition, topPosition) {
-    UmlItemAdding.prototype.act.call(this, commentDiv, leftPosition, topPosition);
-    commentDiv.draggable({
-        containment: "#diagram-container"
-    }).resizable({
-        handles: "all"
-    });
-    makeContenteditable($(".comment-clone", commentDiv), commentDiv);
+    UmlItemAdding.prototype.act.call(this, new UmlComment(commentDiv, this._diagram, topPosition, leftPosition));
 };
 
 CommentAdding.prototype.getHelper = function () {

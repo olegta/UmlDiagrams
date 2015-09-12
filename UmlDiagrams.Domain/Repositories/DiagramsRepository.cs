@@ -41,7 +41,7 @@ namespace UmlDiagrams.Domain.Repositories
                 var diagram = new UmlDiagram()
                 {
                     Name = diagramName,
-                    Author = author,
+                    Author = author
                 };
                 diagram.CreateTime = diagram.LastEditTime = DateTime.Now;
                 _diagramsContext.Diagrams.Add(diagram);

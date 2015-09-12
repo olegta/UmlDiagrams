@@ -27,7 +27,8 @@
     var TOOLBOX_CONNECTOR_CLASS = "icon-connector";
 
 
-    var diagram = new Diagram($("#diagram-container"), $("#diagram-container canvas"));
+    var diagram = new Diagram($("#diagram-container"));
+    diagram.setDrawingMode(Diagram.States["icon-pointer"]);
 
 
     var toolboxItems = $("#uml-elements-items").children();
@@ -43,20 +44,15 @@
         $(this).removeClass("toolbox-element-over");
     }).bind("mousedown", function () {
         var selected = this;
-        var classes = $(selected).children().first().attr("class").split(/\s+/);
+        var first = $(selected).children().first();
+        var classes = first.attr("class").split(/\s+/);
         for (var i = 0; i < classes.length; i++) {
             if (Diagram.States.hasOwnProperty(classes[i])) {
-                console.dir(Diagram.States[classes[i]]);
                 diagram.setDrawingMode(Diagram.States[classes[i]]);
                 break;
             }
         }
-        $(selected).addClass("toolbox-element-selected");
-        toolboxItems.each(function () {
-            $(this).removeClass("toolbox-element-over");
-            if (this !== selected)
-                $(this).removeClass("toolbox-element-selected");
-        });        
+        pickOutToolboxElement($(selected));
     }).first().trigger("mousedown");
 
     $("." + TOOLBOX_POINTER_CLASS).addClass(CREATING_ELEMENT_CLASS);
@@ -94,13 +90,15 @@
                 - $("#diagram-container")[0].offsetLeft;
             var topPosition = Number(ui.helper.css("top").match(/\d+/))
                 - $("#diagram-container")[0].offsetTop;
-            alert(leftPosition + " " + topPosition);
             diagram.act(activeElement, leftPosition, topPosition);
+            resetDrawingMode();
         }
     }).resizable({
         stop: diagram.resize
     }).click(function (event) {
-        // diagram.act(newItemDiv, event.pageX, event.pageY);
+        var position = diagram.getDivForDrawing().position();
+        diagram.act(diagram.getHelper(), event.pageX - position.left, event.pageY - position.top);
+        resetDrawingMode();
     });
     $(document).on("click", ".collapse-icon,.expand-icon", function () {
         var typeContainer = $(this).closest(".type-container");
@@ -115,23 +113,19 @@
         $(this).toggleClass("expand-icon");
     });
 
-    $(document).on("click", ".button-add-attribute", function () {
-        addItemsLine.call(this, ".attributes-list");
-    });
+    function pickOutToolboxElement(elementDiv) {
+        elementDiv.addClass("toolbox-element-selected");
+        toolboxItems.each(function () {
+            $(this).removeClass("toolbox-element-over");
+            if (this !== elementDiv[0])
+                $(this).removeClass("toolbox-element-selected");
+        });
+    }
 
-    $(document).on("click", ".button-add-operation", function () {
-        addItemsLine.call(this, ".operations-list");
-    });
-
-    $(document).on("click", ".button-add-literal", function () {
-        addItemsLine.call(this, ".literals-list");
-    });
+    function resetDrawingMode() {
+        diagram.setDrawingMode(Diagram.States["icon-pointer"]);
+        pickOutToolboxElement(toolboxItems.first());
+    }
 });
 
-function addItemsLine(listSelector) {
-    var container = $(this).closest(".type-container");
-    var creatingItem = $("<li>").attr("contenteditable", "true");
-    $(listSelector, container).append(creatingItem);
-    makeContenteditable(creatingItem, container);
-    $(creatingItem).focus();
-}
+

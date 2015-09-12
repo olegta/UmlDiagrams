@@ -25,6 +25,7 @@ namespace UmlDiagrams.WebApp
                 "~/Scripts/Home/diagrams-interaction.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/DiagramDrawing").Include(
+                        "~/Scripts/Home/DiagramDrawing/UmlElement.js",
                         "~/Scripts/Home/DiagramDrawing/diagram-states.js",
                         "~/Scripts/Home/DiagramDrawing/Diagram.js",
                         "~/Scripts/Home/DiagramDrawing/initialization.js",
