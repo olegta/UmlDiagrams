@@ -1,6 +1,5 @@
 ﻿"use strict";
 
-// todo: code duplicates in show methods and title elements match
 function UmlElement(div, diagram, top, left, title, width, height) {
     this._id = guid();
     this._umlItemDiv = div;
@@ -25,14 +24,16 @@ UmlElement.prototype.show = function () {
             self._topPosition = ui.position.top;
             self._leftPosition = ui.position.left;
             // todo signal R: notifyUmlElementDragged(self)
+            self.redrawArrors();
         }
     }).resizable({
         handles: "all",
         stop: function (event, ui) {
-            self._width = Number(self._umlItemDiv.width());
-            self._height = Number(self._umlItemDiv.height());
+            self._width = (self._umlItemDiv.width());
+            self._height = (self._umlItemDiv.height());
             // todo signal R: notifyUmlElementResized(self)
-        } 
+            self.redrawArrors();
+        }
     });
 
     this._width = Number(this._umlItemDiv.width());
@@ -64,6 +65,10 @@ UmlElement.prototype.setDiadram = function (diagram) {
     this._diagram = diagram;
 };
 
+UmlElement.prototype.getId = function () {
+    return this._id;
+};
+
 UmlElement.prototype.setId = function (id) {
     if (!id)
         id = guid();
@@ -91,6 +96,61 @@ UmlElement.prototype.newOperation = function () {
 
 UmlElement.prototype.newLiteral = function () {
     throw new Error("not implemented");
+}
+
+UmlElement.prototype.redrawArrors = function() {
+    for (var i = 0; i < this._arrows.length; i++) {
+        this._arrows[i].draw();
+    }
+}
+
+UmlElement.prototype.addArrow = function (arrow) {
+    for (var i = 0; i < this._arrows.length; i++) {
+        if (this._arrows[i].getId() === arrow.getId()) {
+            console.warn("arrow " + arrow + " duplicate existed " + this._arrows[i]);
+            return;
+        }
+    }
+    this._arrows.push(arrow);
+}
+
+UmlElement.prototype.matchPoint = function (x, y) {
+    return this._leftPosition < x
+        && this._leftPosition + this._width > x
+        && this._topPosition < y
+        && this._topPosition + this._height > y;
+}
+
+UmlElement.prototype.getTop = function () {
+    return this._topPosition;
+}
+
+UmlElement.prototype.setTop = function (top) {
+    this._topPosition = top;
+}
+
+UmlElement.prototype.getLeft = function () {
+    return this._leftPosition;
+}
+
+UmlElement.prototype.setLeft = function (left) {
+    this._leftPosition = left;
+}
+
+UmlElement.prototype.getWidth = function () {
+    return this._width;
+}
+
+UmlElement.prototype.setwidth = function (width) {
+    this._width = width;
+}
+
+UmlElement.prototype.getHeight = function () {
+    return this._height;
+}
+
+UmlElement.prototype.setHeight = function (height) {
+    this._height = height;
 }
 
 

@@ -14,10 +14,10 @@
 {
     <script type="text/javascript" src="../../Scripts/jquery.signalR-2.2.0.js"></script>
     <script type="text/javascript" src="~/signalr/hubs"></script>
-    @Scripts.Render("~/bundles/DiagramDrawing")
     <script type="text/javascript">
         var diagramData = @Html.Raw(JsonConvert.SerializeObject(Model.Diagram, new IsoDateTimeConverter()));
     </script>
+    @Scripts.Render("~/bundles/DiagramDrawing")
 }
 
 <div>

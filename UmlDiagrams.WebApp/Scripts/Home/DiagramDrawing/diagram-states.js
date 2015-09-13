@@ -1,5 +1,7 @@
 ﻿"use strict";
 
+// часть классов возможно лишние, но они понадобятся при кастомизации добавления элементов разных типов и стрелок разных типов
+
 var CLASS_TYPE = "class";
 var INTERFACE_TYPE = "interface";
 var ENUM_TYPE = "enum";
@@ -13,6 +15,10 @@ DrawingState.prototype.act = function () {
 
 DrawingState.prototype.getHelper = function () {
     throw new Error("Not implemented");
+};
+
+DrawingState.prototype.actionCompleted = function () {
+    return true;
 };
 
 DrawingState.prototype.setDiagram = function (diagram) {
@@ -35,6 +41,7 @@ UmlItemAdding.prototype = Object.create(DrawingState.prototype);
 
 UmlItemAdding.prototype.act = function (umlItem) {
     this._diagram.addItem(umlItem);
+    // TODO: signal R notifyUmlElementAdded(umlItem)
 };
 
 UmlItemAdding.prototype.copyClone = function (helperId) {
@@ -106,49 +113,103 @@ CommentAdding.prototype.getHelper = function () {
 }
 
 
-function AssociationDrawing() {
-    DrawingState.apply(this, arguments);
+function ArrowDrawing() {
+    this._selectFirstUmlElement = function(first) {
+        this._activeAction = this._connectElements.bind(this, first);
+    }
+
+    this._connectElements = function (first, second) {
+        var arrow = new Arrow(first, second, this.getArrowType());
+        this._diagram.addArrow(arrow);
+        // todo: signal R notifyArrowAdded(arrow)
+        this._activeAction = this._selectFirstUmlElement;
+    }
+
+    this._activeAction = this._selectFirstUmlElement;
 }
 
-AssociationDrawing.prototype = Object.create(DrawingState.prototype);
-AssociationDrawing.prototype.act = function () { };
+ArrowDrawing.prototype = Object.create(DrawingState.prototype);
+
+ArrowDrawing.prototype.act = function (commentDiv, leftPosition, topPosition) {
+    var umlElement = this._diagram.getClickedElement(leftPosition, topPosition);
+    if (umlElement !== null)
+        this._activeAction(umlElement);
+};
+
+ArrowDrawing.prototype.getHelper = function () {
+    return null;
+}
+
+ArrowDrawing.prototype.getArrowType = function () {
+    throw new Error("Not implemnted");
+}
+
+ArrowDrawing.prototype.actionCompleted = function() {
+    return this._activeAction === this._selectFirstUmlElement;
+}
+
+
+function AssociationDrawing() {
+    ArrowDrawing.apply(this, arguments);
+}
+
+AssociationDrawing.prototype = Object.create(ArrowDrawing.prototype);
+
+AssociationDrawing.prototype.getArrowType = function () {
+    return "Association";
+}
 
 
 function AggregationDrawing() {
-    DrawingState.apply(this, arguments);
+    ArrowDrawing.apply(this, arguments);
 }
 
-AggregationDrawing.prototype = Object.create(DrawingState.prototype);
-AggregationDrawing.prototype.act = function () { };
+AggregationDrawing.prototype = Object.create(ArrowDrawing.prototype);
+
+AggregationDrawing.prototype.getArrowType = function () {
+    return "Aggregation";
+}
 
 
 function CompositionDrawing() {
-    DrawingState.apply(this, arguments);
+    ArrowDrawing.apply(this, arguments);
 }
 
-CompositionDrawing.prototype = Object.create(DrawingState.prototype);
-CompositionDrawing.prototype.act = function () { };
+CompositionDrawing.prototype = Object.create(ArrowDrawing.prototype);
+
+CompositionDrawing.prototype.getArrowType = function () {
+    return "Composition";
+}
 
 
 function DependencyDrawing() {
-    DrawingState.apply(this, arguments);
+    ArrowDrawing.apply(this, arguments);
 }
 
-DependencyDrawing.prototype = Object.create(DrawingState.prototype);
-DependencyDrawing.prototype.act = function () { };
+DependencyDrawing.prototype = Object.create(ArrowDrawing.prototype);
+
+DependencyDrawing.prototype.getArrowType = function () {
+    return "Dependency";
+}
 
 
 function InheritanceDrawing() {
-    DrawingState.apply(this, arguments);
+    ArrowDrawing.apply(this, arguments);
 }
 
-InheritanceDrawing.prototype = Object.create(DrawingState.prototype);
-InheritanceDrawing.prototype.act = function () { };
+InheritanceDrawing.prototype = Object.create(ArrowDrawing.prototype);
+
+InheritanceDrawing.prototype.getArrowType = function () {
+    return "Inheritance";
+}
 
 
 function ConnectorDrawing() {
-    DrawingState.apply(this, arguments);
+    ArrowDrawing.apply(this, arguments);
 }
 
-ConnectorDrawing.prototype = Object.create(DrawingState.prototype);
-ConnectorDrawing.prototype.act = function() {};
+ConnectorDrawing.prototype = Object.create(ArrowDrawing.prototype);
+
+ConnectorDrawing.prototype.getArrowType = function () {
+    return "Connector";
+}

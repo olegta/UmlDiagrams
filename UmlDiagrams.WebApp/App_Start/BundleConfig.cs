@@ -26,6 +26,7 @@ namespace UmlDiagrams.WebApp
 
             bundles.Add(new ScriptBundle("~/bundles/DiagramDrawing").Include(
                         "~/Scripts/Home/DiagramDrawing/UmlElement.js",
+                        "~/Scripts/Home/DiagramDrawing/Arrow.js",
                         "~/Scripts/Home/DiagramDrawing/UmlItemMember.js",
                         "~/Scripts/Home/DiagramDrawing/diagram-states.js",
                         "~/Scripts/Home/DiagramDrawing/Diagram.js",

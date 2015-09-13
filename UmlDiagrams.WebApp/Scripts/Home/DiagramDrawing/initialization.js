@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿var diagram = null;
+
+$(function () {
     "use strict";
 
     /** @const */
@@ -26,10 +28,14 @@
     /** @const */
     var TOOLBOX_CONNECTOR_CLASS = "icon-connector";
 
-
-    var diagram = new Diagram($("#diagram-container"));
+    var nameField = $("#diagram-name");
+    diagram = new Diagram($("#diagram-container"), nameField.text());
     diagram.setDrawingMode(Diagram.States["icon-pointer"]);
 
+    nameField.bind("input", function() {
+        diagram.rename($(this).text());
+        // todo: signal R notifyDiagramRenamed(diagram.getId(), diagram.getName())
+    });
 
     var toolboxItems = $("#uml-elements-items").children();
     toolboxItems.bind("mousemove", function () {
@@ -94,11 +100,15 @@
             resetDrawingMode();
         }
     }).resizable({
-        stop: diagram.resize
+        stop: function(event, ui) {
+            diagram.resize(event, ui);
+            // TODO: signal R notifyDiagramResize(self)
+        }
     }).click(function (event) {
         var position = diagram.getDivForDrawing().position();
         diagram.act(diagram.getHelper(), event.pageX - position.left, event.pageY - position.top);
-        resetDrawingMode();
+        if (diagram.actionCompleted())
+            resetDrawingMode();
     });
     $(document).on("click", ".collapse-icon,.expand-icon", function () {
         var typeContainer = $(this).closest(".type-container");

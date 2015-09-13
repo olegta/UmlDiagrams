@@ -11,6 +11,7 @@ namespace UmlDiagrams.Domain.Model
         Aggregation,
         Composition,
         Dependency,
-        Inheritance
+        Inheritance,
+        Connector
     }
 }
