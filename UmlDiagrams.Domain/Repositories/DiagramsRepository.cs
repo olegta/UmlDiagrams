@@ -23,12 +23,12 @@ namespace UmlDiagrams.Domain.Repositories
             return _diagramsContext.Diagrams;
         }
 
-        public UmlDiagram GetDiagram(int id) // TODO: обработка ситуации с несуществующем Id
+        public UmlDiagram GetDiagram(Guid id)
         {
-            return _diagramsContext.Diagrams.First(i => i.Id == id);
+            return _diagramsContext.Diagrams.FirstOrDefault(i => i.Id == id);
         }
 
-        public int? CreateNew(string diagramName, string author)
+        public UmlDiagram CreateNew(string diagramName, string author)
         {
             if (diagramName == null)
                 throw new ArgumentException("argument can not be null", "diagramName");
@@ -40,13 +40,14 @@ namespace UmlDiagrams.Domain.Repositories
             {
                 var diagram = new UmlDiagram()
                 {
+                    Id = Guid.NewGuid(),
                     Name = diagramName,
                     Author = author
                 };
                 diagram.CreateTime = diagram.LastEditTime = DateTime.Now;
                 _diagramsContext.Diagrams.Add(diagram);
                 _diagramsContext.SaveChanges();
-                return diagram.Id;
+                return diagram;
             }
             catch (SqlException exception)
             {
@@ -68,6 +69,12 @@ namespace UmlDiagrams.Domain.Repositories
         public void Dispose()
         {
             _diagramsContext.Dispose();
+        }
+
+
+        public UmlDiagram GetDiagram(string name)
+        {
+            return _diagramsContext.Diagrams.SingleOrDefault(i => i.Name == name);
         }
     }
 }

@@ -11,8 +11,10 @@ namespace UmlDiagrams.Domain.Repositories
     {
         IQueryable<UmlDiagram> GetAllDiagrams();
 
-        UmlDiagram GetDiagram(int id);
+        UmlDiagram GetDiagram(Guid id);
 
-        int? CreateNew(string diagramName, string author);
+        UmlDiagram GetDiagram(string name);
+
+        UmlDiagram CreateNew(string diagramName, string author);
     }
 }

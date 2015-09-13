@@ -23,7 +23,7 @@ namespace UmlDiagrams.Domain.Model
         }
 
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public DateTime CreateTime { get; set; }
 

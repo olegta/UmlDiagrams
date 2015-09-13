@@ -11,7 +11,7 @@ namespace UmlDiagrams.Domain.Repositories
     {
         IQueryable<T> GetAll();
 
-        T Get(int id);
+        T Get(Guid id);
 
         void Update(T entity);
 
@@ -20,7 +20,7 @@ namespace UmlDiagrams.Domain.Repositories
 
     public static class IGenericRepositoryExtensions
     {
-        public static void Delete<T>(this IGenericRepository<T> repository, int id) where T : IDbEntity
+        public static void Delete<T>(this IGenericRepository<T> repository, Guid id) where T : IDbEntity
         {
             repository.Delete(repository.Get(id));
         }

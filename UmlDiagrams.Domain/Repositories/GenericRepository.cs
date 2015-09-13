@@ -27,14 +27,15 @@ namespace UmlDiagrams.Domain.Repositories
             return Context.Set<T>().AsQueryable();
         }
 
-        public virtual T Get(int id)
+        public virtual T Get(Guid id)
         {
             return Context.Set<T>().Find(id);
         }
 
         public virtual void Update(T entity)
         {
-            if (entity.Id == 0)
+            var existedEntity = Get(entity.Id);
+            if (existedEntity == null)
             {
                 Context.Set<T>().Add(entity);
             }

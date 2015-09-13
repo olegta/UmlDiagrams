@@ -12,6 +12,12 @@ namespace UmlDiagrams.WebApp.Hubs
     {
         private readonly Logger _log = LogManager.GetCurrentClassLogger();
 
+
+        public void JoinDiagramEdditing(Guid diagramId)
+        {
+            
+        }
+
         public void ResizeDiagram(int width, int height)
         {
             Clients.Others.resizeDiagram();
@@ -20,7 +26,7 @@ namespace UmlDiagrams.WebApp.Hubs
         public void RenameDiagram(string newName)
         {
             _log.Debug("renaming with " + newName);
-            Clients.All.addDiagram();
+            Clients.Others.renameDiagram();
         }
 
         public void AddElement(string wrappedElement)

@@ -37,20 +37,22 @@ namespace UmlDiagrams.WebApp.Controllers
         [HttpPost]
         public RedirectToRouteResult Create(string diagramName, string author)
         {
-            int? createdId = _diagramsRepository.CreateNew(diagramName, author);
-            if (createdId != null)
+            UmlDiagram created = _diagramsRepository.CreateNew(diagramName, author);
+            if (created != null)
             {
                 Response.SetCookie(new HttpCookie(AUTHOR_COOKIE, author));
-                return RedirectToRoute(new {controller = "Home", action = "Diagram", id = createdId.Value});
+                return RedirectToRoute(new { controller = "Home", action = "Diagram", name = created.Name });
             }
-            TempData[DIAGRAM_NOT_CREATED_KEY] = "Не удалось создать новую диаграмму. Попробуйте использовать другое имя.";
-            
-            return RedirectToRoute(new { controller = "Home", action = "Index" });
+            else
+            {
+                TempData[DIAGRAM_NOT_CREATED_KEY] = "Не удалось создать новую диаграмму. Попробуйте использовать другое имя.";
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+            }
         }
 
-        public ViewResult Diagram(int id)
+        public ViewResult Diagram(string name)
         {
-            UmlDiagram diagram = _diagramsRepository.GetDiagram(id);
+            UmlDiagram diagram = _diagramsRepository.GetDiagram(name);
             var toolboxItems = new List<ToolboxElement>()
             {
                 new ToolboxElement("icon-pointer", "Указатель", "pointer-tool"),

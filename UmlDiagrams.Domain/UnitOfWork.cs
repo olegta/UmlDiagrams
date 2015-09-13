@@ -25,6 +25,11 @@ namespace UmlDiagrams.Domain
             return new GenericRepository<T>(this);
         }
 
+        public IDiagramsRepository GetDiagramRepository()
+        {
+            return new DiagramsRepository();
+        }
+
         public void Commit()
         {
             Context.SaveChanges();

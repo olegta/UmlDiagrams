@@ -8,7 +8,7 @@ namespace UmlDiagrams.Domain.Model
 {
     public abstract class UmlDiagramElement : IDbEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public int XPosition { get; set; }
 

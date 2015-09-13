@@ -8,6 +8,6 @@ namespace UmlDiagrams.Domain.Model
 {
     public interface IDbEntity
     {
-        int Id { get; set; }
+        Guid Id { get; set; }
     }
 }

@@ -9,11 +9,12 @@
 
 (function () {
     var hub = $.connection.diagramDrawingHub;
-    hub.client.addDiagram = function () {
-        alert(123);
+    hub.client.renameDiagram = function () {
+        diagram.rename;
     };
     $.connection.hub.start().done(function () {
-        $.connection.diagramDrawingHub.server.renameDiagram("456");
+        var diagram = $.connection.diagramDrawingHub.server.joinDiagramEdditing(diagram.getId());
+        //initializeDiagram(diagram);
     });
 
     

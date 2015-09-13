@@ -8,7 +8,7 @@ namespace UmlDiagrams.Domain.Model
 {
     public class UmlArrow : IDbEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public UmlDiagramElement First { get; set; }
 
