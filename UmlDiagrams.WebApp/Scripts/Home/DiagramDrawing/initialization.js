@@ -110,18 +110,6 @@ $(function () {
         if (diagram.actionCompleted())
             resetDrawingMode();
     });
-    $(document).on("click", ".collapse-icon,.expand-icon", function () {
-        var typeContainer = $(this).closest(".type-container");
-        if ($(this).hasClass("collapse-icon")) {
-            typeContainer.animate({ height: $(this).parent().outerHeight(true) + "px" });
-        } else if ($(this).hasClass("expand-icon")) {
-            typeContainer.animate({ height: typeContainer[0].scrollHeight });
-        } else {
-            throw new Error("invalid state of expand-collapse icon");
-        }
-        $(this).toggleClass("collapse-icon");
-        $(this).toggleClass("expand-icon");
-    });
 
     function pickOutToolboxElement(elementDiv) {
         elementDiv.addClass("toolbox-element-selected");

@@ -31,6 +31,8 @@ UmlElement.prototype.show = function () {
         stop: function (event, ui) {
             self._width = (self._umlItemDiv.width());
             self._height = (self._umlItemDiv.height());
+            self._topPosition = self._umlItemDiv.position().top;
+            self._leftPosition = self._umlItemDiv.position().left;
             // todo signal R: notifyUmlElementResized(self)
             self.redrawArrors();
         }
@@ -58,6 +60,22 @@ UmlElement.prototype.show = function () {
     $(self._umlItemDiv).on("click", ".button-add-literal", function () {
         var literal = self.newLiteral();
         self.addItemsLine.call(self, ".literals-list", literal);
+    });
+
+    $(self._umlItemDiv).on("click", ".collapse-icon,.expand-icon", function () {
+        var typeContainer = $(this).closest(".type-container");
+        if ($(this).hasClass("collapse-icon")) {
+            self._height = $(this).parent().outerHeight(true);
+        } else if ($(this).hasClass("expand-icon")) {
+            self._height = typeContainer[0].scrollHeight;
+        } else {
+            throw new Error("invalid state of expand-collapse icon");
+        }
+        console.log(typeof (self._height) + ": " + self._height);
+        typeContainer.animate({ height: self._height + "px" });
+        $(this).toggleClass("collapse-icon");
+        $(this).toggleClass("expand-icon");
+        self.redrawArrors();
     });
 };
 

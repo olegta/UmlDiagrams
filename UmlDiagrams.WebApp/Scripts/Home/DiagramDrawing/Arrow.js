@@ -2,11 +2,10 @@
     var self = this;
 
     var _id = guid();
-
     var _firstElement = firstElement;
     var _secondElement = secondElement;
-
     var _arrowType = type;
+    var _name = null;
 
     var _isDirty = false;
 

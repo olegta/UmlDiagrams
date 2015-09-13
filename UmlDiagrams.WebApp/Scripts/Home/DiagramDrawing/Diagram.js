@@ -54,6 +54,7 @@ function Diagram(divElement, name) {
     self.setDrawingMode = function (drawingMode) {
         _state = drawingMode;
         _state.setDiagram(self);
+        _state.switchOn();
     };
 
     self.act = function (uiHelper, leftPosition, topPosition) { 

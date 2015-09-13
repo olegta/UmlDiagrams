@@ -25,6 +25,8 @@ DrawingState.prototype.setDiagram = function (diagram) {
     this._diagram = diagram;
 };
 
+DrawingState.prototype.switchOn = function () { };
+
 
 function PointerState() {
     DrawingState.apply(this, arguments);
@@ -119,6 +121,9 @@ function ArrowDrawing() {
     }
 
     this._connectElements = function (first, second) {
+        if (first === second)
+            return;
+
         var arrow = new Arrow(first, second, this.getArrowType());
         this._diagram.addArrow(arrow);
         // todo: signal R notifyArrowAdded(arrow)
@@ -146,6 +151,10 @@ ArrowDrawing.prototype.getArrowType = function () {
 
 ArrowDrawing.prototype.actionCompleted = function() {
     return this._activeAction === this._selectFirstUmlElement;
+}
+
+ArrowDrawing.prototype.switchOn = function () {
+    this._activeAction = this._selectFirstUmlElement;;
 }
 
 
