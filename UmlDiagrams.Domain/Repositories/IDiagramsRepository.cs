@@ -16,5 +16,9 @@ namespace UmlDiagrams.Domain.Repositories
         UmlDiagram GetDiagram(string name);
 
         UmlDiagram CreateNew(string diagramName, string author);
+
+        void UpdateDiagram(UmlDiagram diagram);
+
+        void AddElement(Guid diagramId, UmlDiagramElement element);
     }
 }

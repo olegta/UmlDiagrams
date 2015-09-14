@@ -43,7 +43,7 @@ UmlItemAdding.prototype = Object.create(DrawingState.prototype);
 
 UmlItemAdding.prototype.act = function (umlItem) {
     this._diagram.addItem(umlItem);
-    // TODO: signal R notifyUmlElementAdded(umlItem)
+    notifier.notifyUmlElementAdded(this._diagram.getId(), umlItem);
 };
 
 UmlItemAdding.prototype.copyClone = function (helperId) {

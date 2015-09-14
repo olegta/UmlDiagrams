@@ -28,13 +28,13 @@ $(function () {
     /** @const */
     var TOOLBOX_CONNECTOR_CLASS = "icon-connector";
 
-    var nameField = $("#diagram-name");
-    diagram = new Diagram($("#diagram-container"), nameField.text());
+    var nameField = $("#diagram-name").children("input").first();
+    diagram = new Diagram($("#diagram-container"), nameField.val());
     diagram.setDrawingMode(Diagram.States["icon-pointer"]);
 
     nameField.bind("input", function() {
-        diagram.rename($(this).text());
-        // todo: signal R notifyDiagramRenamed(diagram.getId(), diagram.getName())
+        diagram.rename($(this).val());
+        notifier.notifyDiagramRenamed(diagram);
     });
 
     var toolboxItems = $("#uml-elements-items").children();
@@ -101,8 +101,8 @@ $(function () {
         }
     }).resizable({
         stop: function(event, ui) {
-            diagram.resize(event, ui);
-            // TODO: signal R notifyDiagramResize(self)
+            diagram.resize(ui.size.width, ui.size.height);
+            notifier.notifyDiagramResized(diagram);
         }
     }).click(function (event) {
         var position = diagram.getDivForDrawing().position();

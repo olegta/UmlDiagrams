@@ -152,6 +152,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\DiagramDrawingHub.cs" />
+    <Compile Include="Infrastructure\SignalRDependencyResolver.cs" />
     <Compile Include="Infrastructure\UmlDiagramsControllerFactory.cs" />
     <Compile Include="Models\DiagramDrawingModel.cs" />
     <Compile Include="Models\ToolboxElement.cs" />

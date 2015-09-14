@@ -17,7 +17,8 @@ namespace UmlDiagrams.WebApp.Infrastructure
         public UmlDiagramsControllerFactory()
         {
             _kernel = new StandardKernel();
-            _kernel.Bind<IDiagramsRepository>().To<DiagramsRepository>();
+            _kernel.Bind<IDiagramsRepository>().To<DiagramsRepository>()
+                .WithConstructorArgument("context", ninjectContext => new UmlDiagramContext());
         }
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {

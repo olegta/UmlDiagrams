@@ -12,6 +12,8 @@ namespace UmlDiagrams.Domain
     {
         IGenericRepository<T> GenericRepository<T>() where T : class, IDbEntity;
 
+        IDiagramsRepository GetDiagramRepository();
+
         void Commit();
     }
 }

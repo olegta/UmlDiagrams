@@ -7,7 +7,7 @@
 function Diagram(divElement, name) {
     var self = this;
 
-    var _id = guid();
+    var _id = GLOBAL_DIAGRAM_ID;
     var _name = name;
 
     var _divElement = divElement;
@@ -73,10 +73,10 @@ function Diagram(divElement, name) {
         return _divElement;
     };
 
-    self.resize = function(event, ui) {
+    self.resize = function (width, height) {
         var arrowsCanvas = $("canvas", _divElement);
-        arrowsCanvas.prop("width", ui.size.width);
-        arrowsCanvas.prop("height", ui.size.height);
+        arrowsCanvas.prop("width", width);
+        arrowsCanvas.prop("height", height);
         for (var i = 0; i < _arrows.length; i++) {
             _arrows[i].draw();
         }

@@ -27,7 +27,7 @@ namespace UmlDiagrams.Domain
 
         public IDiagramsRepository GetDiagramRepository()
         {
-            return new DiagramsRepository();
+            return new DiagramsRepository(Context);
         }
 
         public void Commit()

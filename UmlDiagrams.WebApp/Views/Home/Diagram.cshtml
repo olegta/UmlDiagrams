@@ -15,7 +15,7 @@
     <script type="text/javascript" src="../../Scripts/jquery.signalR-2.2.0.js"></script>
     <script type="text/javascript" src="~/signalr/hubs"></script>
     <script type="text/javascript">
-        var diagramData = @Html.Raw(JsonConvert.SerializeObject(Model.Diagram, new IsoDateTimeConverter()));
+        var GLOBAL_DIAGRAM_ID = "@Model.Diagram.Id";
     </script>
     @Scripts.Render("~/bundles/DiagramDrawing")
 }

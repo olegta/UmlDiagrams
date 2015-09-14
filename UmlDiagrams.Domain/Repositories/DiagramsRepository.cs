@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using NLog;
@@ -15,7 +17,13 @@ namespace UmlDiagrams.Domain.Repositories
         private static Logger log = LogManager.GetCurrentClassLogger();
 
 
-        private UmlDiagramContext _diagramsContext = new UmlDiagramContext();
+        private UmlDiagramContext _diagramsContext;
+
+
+        public DiagramsRepository(UmlDiagramContext context)
+        {
+            _diagramsContext = context;
+        }
 
 
         public IQueryable<UmlDiagram> GetAllDiagrams()
@@ -75,6 +83,22 @@ namespace UmlDiagrams.Domain.Repositories
         public UmlDiagram GetDiagram(string name)
         {
             return _diagramsContext.Diagrams.SingleOrDefault(i => i.Name == name);
+        }
+
+
+        public void UpdateDiagram(UmlDiagram diagram)
+        {
+            _diagramsContext.Diagrams.Attach(diagram);
+            _diagramsContext.Entry(diagram).State = EntityState.Modified;
+            _diagramsContext.SaveChanges();
+        }
+
+        public void AddElement(Guid diagramId, UmlDiagramElement element)
+        {
+            UmlDiagram diagram = _diagramsContext.Diagrams.Find(diagramId);
+            _diagramsContext.DiagramElements.Add(element);
+            diagram.Elements.Add(element);
+            _diagramsContext.SaveChanges();
         }
     }
 }

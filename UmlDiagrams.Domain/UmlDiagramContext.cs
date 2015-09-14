@@ -9,7 +9,7 @@ using UmlDiagrams.Domain.Model;
 
 namespace UmlDiagrams.Domain
 {
-    class UmlDiagramContext : DbContext
+    public class UmlDiagramContext : DbContext
     {
         public UmlDiagramContext()
             : base("UmlDiagramsContext")
