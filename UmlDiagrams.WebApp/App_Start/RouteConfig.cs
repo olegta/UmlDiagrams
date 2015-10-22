@@ -15,7 +15,7 @@ namespace UmlDiagrams.WebApp
 
             routes.MapRoute(
                 name: "Diagrams",
-                url: "{name}",
+                url: "{id}",
                 defaults: new { controller = "Home", action = "Diagram" }
             );
 

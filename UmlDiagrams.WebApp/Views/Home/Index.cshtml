@@ -24,7 +24,7 @@
                 @foreach (var diagram in @Model)
                 {
                     <tr>
-                        <td>@Html.ActionLink(diagram.Name, "Diagram", new { name = diagram.Name })</td>
+                        <td>@Html.ActionLink(diagram.Name, "Diagram", new { id = diagram.Id })</td>
                         <td>@diagram.Author</td>
                         <td>@diagram.CreateTime.ToString("dd.MM.yyyyг. | HH:mm:ss")</td>
                     </tr>

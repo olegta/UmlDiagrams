@@ -50,9 +50,9 @@ namespace UmlDiagrams.WebApp.Controllers
             }
         }
 
-        public ViewResult Diagram(string name)
+        public ViewResult Diagram(Guid id)
         {
-            UmlDiagram diagram = _diagramsRepository.GetDiagram(name);
+            UmlDiagram diagram = _diagramsRepository.GetDiagram(id);
             var toolboxItems = new List<ToolboxElement>()
             {
                 new ToolboxElement("icon-pointer", "Указатель", "pointer-tool"),

@@ -71,7 +71,6 @@ UmlElement.prototype.show = function () {
         } else {
             throw new Error("invalid state of expand-collapse icon");
         }
-        console.log(typeof (self._height) + ": " + self._height);
         typeContainer.animate({ height: self._height + "px" });
         $(this).toggleClass("collapse-icon");
         $(this).toggleClass("expand-icon");
@@ -139,6 +138,10 @@ UmlElement.prototype.matchPoint = function (x, y) {
         && this._topPosition + this._height > y;
 }
 
+UmlElement.prototype.serializeToDto = function () {
+    throw new Error("not implemented");
+}
+
 UmlElement.prototype.getTop = function () {
     return this._topPosition;
 }
@@ -193,6 +196,13 @@ UmlClass.prototype.newAttribute = function () {
 }
 
 UmlClass.prototype.newOperation = function () {
+    var operation = new UmlOperation();
+    this._operations.push(operation);
+    // todo: signal R notifyOperationAdded(operation)
+    return operation;
+}
+
+UmlClass.prototype.serializeToDto = function () {
     var operation = new UmlOperation();
     this._operations.push(operation);
     // todo: signal R notifyOperationAdded(operation)
