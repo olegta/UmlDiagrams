@@ -154,3 +154,6 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+/UmlDiagrams.WebApp/App_Data
+/UmlDiagrams.WebApp/App_Data/UmlDiagramsContext.mdf
+/UmlDiagrams.WebApp/App_Data/UmlDiagramsContext_log.ldf
