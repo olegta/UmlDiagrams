@@ -16,25 +16,22 @@ function UmlElement(div, diagram, top, left, title, width, height) {
 
 UmlElement.prototype.show = function () {
     var self = this;
-    this._diagram.getDiagramContainer().append(self._umlItemDiv);
+    self._diagram.getDiagramContainer().append(self._umlItemDiv);
     self._umlItemDiv.css({ "left": self._leftPosition + "px", "top": self._topPosition + "px" });
     self._umlItemDiv.draggable({
-        containment: this._diagram.getDiagramContainer(),
+        containment: self._diagram.getDiagramContainer(),
         stop: function (event, ui) {
-            self._topPosition = ui.position.top;
-            self._leftPosition = ui.position.left;
-            // todo signal R: notifyUmlElementDragged(self)
-            self.redrawArrors();
+            self.move(ui.position.top, ui.position.left);
+            notifier.notifyUmlElementMoved(self._diagram.getId(), self);
         }
     }).resizable({
         handles: "all",
         stop: function (event, ui) {
-            self._width = (self._umlItemDiv.width());
-            self._height = (self._umlItemDiv.height());
-            self._topPosition = self._umlItemDiv.position().top;
-            self._leftPosition = self._umlItemDiv.position().left;
-            // todo signal R: notifyUmlElementResized(self)
-            self.redrawArrors();
+            self.resize(self._umlItemDiv.position().top,
+                self._umlItemDiv.position().left,
+                self._umlItemDiv.width(),
+                self._umlItemDiv.height());
+            notifier.notifyUmlElementMoved(self._diagram.getId(), self);
         }
     });
 
@@ -44,12 +41,13 @@ UmlElement.prototype.show = function () {
     makeContenteditable($(".type-title", self._umlItemDiv), self._umlItemDiv);
     $(".type-title", self._umlItemDiv).bind("input", function () {
         self._title = $(this).text();
-        // todo: signal R: notifyUmlElementRenamed(self);
+        notifier.notifyUmlElementRenamed(self._diagram.getId(), self);
     });
 
     $(self._umlItemDiv).on("click", ".button-add-attribute", function () {
         var attribute = self.newAttribute();
         self.addItemsLine.call(self, ".attributes-list", attribute);
+        notifier.notifyAttributeAdded(self._diagram.getId(), self, attribute)
     });
 
     $(self._umlItemDiv).on("click", ".button-add-operation", function () {
@@ -76,6 +74,57 @@ UmlElement.prototype.show = function () {
         $(this).toggleClass("expand-icon");
         self.redrawArrors();
     });
+
+    $(self._umlItemDiv).contextmenu({
+        delegate: ".type-title",
+        menu: [ { title: "Удалить", cmd: "del" } ],
+        select: function (event, ui) {
+            console.log("delete " + ui.cmd + " on " + ui.target.text());
+            // без таймаута вылетит эксепшн при попытке закрыть меню
+            setTimeout(function () {
+                self._diagram.deleteElement(self.getId());
+            });
+            notifier.notifyDeleteElement(self._diagram.getId(), self);
+        }
+    });
+};
+
+UmlElement.prototype.getArrows = function () {
+    return this._arrows;
+};
+
+UmlElement.prototype.destroy = function () {
+    for (var i = 0; i < this._arrows.length; i++) {
+        this._arrows[i].destroy();
+    };
+    $(this._umlItemDiv).contextmenu("destroy");
+    $(this._umlItemDiv).remove();
+};
+
+UmlElement.prototype.getTitle = function () {
+    return this._title;
+};
+
+UmlElement.prototype.setTitle = function (title) {
+    console.log($(".type-title", this._umlItemDiv).length);
+    $(".type-title", this._umlItemDiv).text(title);
+};
+
+UmlElement.prototype.move = function (top, left) {
+    this._topPosition = top;
+    this._leftPosition = left;
+    this.redrawArrors();
+};
+
+UmlElement.prototype.resize = function (top, left, width, height) {
+    this._width = width;
+    this._height = height;
+    this._topPosition = top;
+    this._leftPosition = left;
+    $(this._umlItemDiv).width(width);
+    $(this._umlItemDiv).height(height);
+    $(this._umlItemDiv).css({ "top": top, "left": left });
+    this.redrawArrors();
 };
 
 UmlElement.prototype.setDiadram = function (diagram) {
@@ -93,12 +142,14 @@ UmlElement.prototype.setId = function (id) {
 };
 
 UmlElement.prototype.addItemsLine = function (listSelector, umlItemMember) {
+    var self = this;
     var creatingItem = $("<li>").attr("contenteditable", "true").text(umlItemMember.getName());
-    $(listSelector, this._umlItemDiv).append(creatingItem);
-    makeContenteditable(creatingItem, this._umlItemDiv);
+    $(listSelector, self._umlItemDiv).append(creatingItem);
+    makeContenteditable(creatingItem, self._umlItemDiv);
     creatingItem.bind("input", function() {
         umlItemMember.setName($(this).text());
-        // todo: signal R notifyItemMemberChanged(umlItemMember)
+        notifier.notifyItemMemberChanged(self._diagram.getId(),
+            self.getId(), umlItemMember.getId(), umlItemMember.getName());
     });
     $(creatingItem).focus();
 }
@@ -191,7 +242,6 @@ UmlClass.prototype.show = function() {
 UmlClass.prototype.newAttribute = function () {
     var attribute = new UmlAttribute();
     this._attributes.push(attribute);
-    // todo: signal R notifyAttributeAdded(operation)
     return attribute;
 }
 

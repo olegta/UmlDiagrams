@@ -18,6 +18,21 @@ function Diagram(divElement, name) {
     var _state = Diagram.States["icon-pointer"];
 
 
+    self.deleteElement = function (id) {
+        console.log("deleting id: " + _id)
+        var element = self.getUmlElementById(id);
+        element.destroy();
+    }
+
+    self.getUmlElementById = function (id) {
+        console.log("diagram id: " + _id)
+        for (var i = 0; i < _elements.length; i++) {
+            console.log("compare " + id + " to " + _elements[i].getId())
+            if (_elements[i].getId().toUpperCase() === id.toUpperCase())
+                return _elements[i];
+        };
+    }
+
     self.getId = function() {
         return _id;
     }

@@ -48,6 +48,21 @@
         }
     }
 
+    self.destroy = function () {
+        removeElementArrows(_firstElement);
+        removeElementArrows(_secondElement);
+        $(_arrowCanvas).remove();
+
+        function removeElementArrows(element) {
+            var elementArross = element.getArrows();
+            for (var i = 0; i < elementArross.length; i++) {
+                if (elementArross[i] == self) {
+                    elementArross.splice(i, 1);
+                }
+            }
+        }
+    }
+
 
     self.getId = function() {
         return _id;

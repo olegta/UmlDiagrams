@@ -29,7 +29,6 @@ namespace UmlDiagrams.WebApp.Controllers
 
         public ViewResult Index()
         {
-            // TODO: ограничить количество одновременно отображаемых на странице диаграмм
             IQueryable<UmlDiagram> allDiagrams = _diagramsRepository.GetAllDiagrams();
             return View(allDiagrams);
         }
@@ -41,7 +40,7 @@ namespace UmlDiagrams.WebApp.Controllers
             if (created != null)
             {
                 Response.SetCookie(new HttpCookie(AUTHOR_COOKIE, author));
-                return RedirectToRoute(new { controller = "Home", action = "Diagram", name = created.Name });
+                return RedirectToRoute(new { controller = "Home", action = "Diagram", id = created.Id });
             }
             else
             {

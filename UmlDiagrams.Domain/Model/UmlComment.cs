@@ -10,6 +10,5 @@ namespace UmlDiagrams.Domain.Model
     [Table("UmlComments")]
     public class UmlComment : UmlDiagramElement
     {
-        public string Text { get; set; }
     }
 }

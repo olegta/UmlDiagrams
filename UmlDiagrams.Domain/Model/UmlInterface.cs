@@ -11,8 +11,6 @@ namespace UmlDiagrams.Domain.Model
     [Table("UmlInterfaces")]
     public class UmlInterface : UmlDiagramElement
     {
-        public string Name { get; set; }
-
         public ICollection<UmlOperation> Operations { get; set; }
     }
 }

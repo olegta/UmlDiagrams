@@ -43,7 +43,6 @@ UmlItemAdding.prototype = Object.create(DrawingState.prototype);
 
 UmlItemAdding.prototype.act = function (umlItem) {
     this._diagram.addItem(umlItem);
-    notifier.notifyUmlElementAdded(this._diagram.getId(), umlItem);
 };
 
 UmlItemAdding.prototype.copyClone = function (helperId) {
@@ -61,8 +60,9 @@ function ClassAdding() {
 ClassAdding.prototype = Object.create(UmlItemAdding.prototype);
 
 ClassAdding.prototype.act = function (classDiv, leftPosition, topPosition) {
-    UmlItemAdding.prototype.act.call(this,
-        new UmlClass(classDiv, this._diagram, topPosition, leftPosition));
+    var umlItem = new UmlClass(classDiv, this._diagram, topPosition, leftPosition);
+    UmlItemAdding.prototype.act.call(this, umlItem);
+    notifier.notifyUmlClassAdded(this._diagram.getId(), umlItem);
 };
 
 ClassAdding.prototype.getHelper = function () {
@@ -77,8 +77,9 @@ function InterfaceAdding() {
 InterfaceAdding.prototype = Object.create(UmlItemAdding.prototype);
 
 InterfaceAdding.prototype.act = function (interfaceDiv, leftPosition, topPosition) {
-    UmlItemAdding.prototype.act.call(this,
-        new UmlInterface(interfaceDiv, this._diagram, topPosition, leftPosition));
+    var umlItem = new UmlInterface(interfaceDiv, this._diagram, topPosition, leftPosition);
+    UmlItemAdding.prototype.act.call(this, umlItem);
+    notifier.notifyUmlInterfaceAdded(this._diagram.getId(), umlItem);
 };
 
 InterfaceAdding.prototype.getHelper = function () {
@@ -92,8 +93,9 @@ function EnumAdding() {
 
 EnumAdding.prototype = Object.create(UmlItemAdding.prototype);
 EnumAdding.prototype.act = function (enumDiv, leftPosition, topPosition) {
-    UmlItemAdding.prototype.act.call(this,
-        new UmlEnum(enumDiv, this._diagram, topPosition, leftPosition));
+    var umlItem = new UmlEnum(enumDiv, this._diagram, topPosition, leftPosition);
+    UmlItemAdding.prototype.act.call(this, umlItem);
+    notifier.notifyUmlEnumAdded(this._diagram.getId(), umlItem);
 };
 
 EnumAdding.prototype.getHelper = function () {
@@ -107,7 +109,9 @@ function CommentAdding() {
 
 CommentAdding.prototype = Object.create(UmlItemAdding.prototype);
 CommentAdding.prototype.act = function (commentDiv, leftPosition, topPosition) {
-    UmlItemAdding.prototype.act.call(this, new UmlComment(commentDiv, this._diagram, topPosition, leftPosition));
+    var umlItem = new UmlComment(commentDiv, this._diagram, topPosition, leftPosition);
+    UmlItemAdding.prototype.act.call(this, umlItem);
+    notifier.notifyUmlCommentAdded(this._diagram.getId(), umlItem);
 };
 
 CommentAdding.prototype.getHelper = function () {
@@ -126,7 +130,7 @@ function ArrowDrawing() {
 
         var arrow = new Arrow(first, second, this.getArrowType());
         this._diagram.addArrow(arrow);
-        // todo: signal R notifyArrowAdded(arrow)
+        notifier.notifyArrowAdded(this._diagram.getId(), arrow);
         this._activeAction = this._selectFirstUmlElement;
     }
 

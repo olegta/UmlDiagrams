@@ -10,8 +10,6 @@ namespace UmlDiagrams.Domain.Model
     [Table("UmlClasses")]
     public class UmlClass : UmlDiagramElement
     {
-        public string Name { get; set; }
-
         public ICollection<UmlAttribute> Attributes { get; set; }
 
         public ICollection<UmlOperation> Operations { get; set; }

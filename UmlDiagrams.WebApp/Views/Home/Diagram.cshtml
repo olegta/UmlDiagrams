@@ -22,14 +22,20 @@
 
 <div>
     <div>
-        <div style="float: left;">@Html.LabelFor(m => m.Diagram.Name)</div>
-        <div id="diagram-name" style="float: left;">@Html.EditorFor(m => m.Diagram.Name)</div>
-        <div style="float: left;">@Html.LabelFor(m => m.Diagram.Author)</div>
-        <div style="float: left;">@Html.DisplayFor(m => m.Diagram.Author)</div>
-        <div style="float: left;">@Html.LabelFor(m => m.Diagram.CreateTime)</div>
-        <div style="float: left;">@Html.DisplayFor(m => m.Diagram.CreateTime)</div>
-        <div style="float: left;">@Html.LabelFor(m => m.Diagram.LastEditTime)</div>
-        <div style="float: left;">@Html.DisplayFor(m => m.Diagram.LastEditTime)</div>
+        <div style="float: left;">
+            <div class="diagram-data">Название диаграммы:</div>
+            <div id="diagram-name" class="diagram-data">@Html.EditorFor(m => m.Diagram.Name)</div>
+        </div>
+        <div style="float: left;">
+            <div class="diagram-data">Автор:</div>
+            <div class="diagram-data">@Html.DisplayFor(m => m.Diagram.Author)</div>
+        </div>
+        <div style="float: left;">
+            <div class="diagram-data">Создана:</div>
+            <div class="diagram-data">@Html.DisplayFor(m => m.Diagram.CreateTime)</div>
+        </div>
+        <div class="diagram-data" style="display: none">@Html.LabelFor(m => m.Diagram.LastEditTime)</div>
+        <div class="diagram-data" style="display: none">@Html.DisplayFor(m => m.Diagram.LastEditTime)</div>
     </div>
     <div style="clear: both;">
         <div id="uml-elements-container" style="float: left;">
@@ -48,7 +54,7 @@
         <div id="diagram-container"
              style="float: left; width: @(Model.Diagram.Width + "px"); height: @(Model.Diagram.Height + "px")">
         </div>
-        <div id="element-properties" style="float: left;">
+        <div id="element-properties" style="float: left; display: none;">
             <div><h5>Свойства</h5>
             </div>
         </div>
